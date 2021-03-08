@@ -27,11 +27,12 @@ interface Focusable {
 // class Button implements Clickable implements Focusable
 class Button : Clickable, Focusable {
 
+    // 다이아몬드 상속 이슈 - 상위 인터페이스가 동일한 메소드 기본 구현을 제공할 경우, 반드시 재정의가 필요합니다.
     override fun showOff() {
         super<Focusable>.showOff()
         super<Clickable>.showOff()
     }
-    
+
     override fun click() {
         println("Button click")
     }
