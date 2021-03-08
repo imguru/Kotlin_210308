@@ -54,7 +54,7 @@ fun getWarmth(color: Color): String {
     return when (color) {
         Color.RED, Color.ORANGE -> "warm"
         Color.YELLOW -> "neutral"
-        Color.GREEN -> "cold"
+        Color.GREEN, Color.BLUE -> "cold"
     }
 }
 
