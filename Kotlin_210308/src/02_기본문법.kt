@@ -146,7 +146,8 @@ class User(private var name: String, private var age: Int) {
 fun main() {
     // final User user = new User("Tom", 42);
 
-    val user1 = User("Tom", 42)
+    // val user1 = User("Tom", 42)
+    var user1 = null
     val user2 = User("Tom", 42)
     // val user2 = user1
 
@@ -157,7 +158,9 @@ fun main() {
 
     //  2. 객체 동등성
     //    user1.equals(user2) // Java
+
     //    user1 == user2      // Kotlin
+    //    => null에 안전하게 동작합니다.
 
     if (user1 === user2) {
         println("같은 참조값")

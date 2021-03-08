@@ -64,10 +64,12 @@ public class Sample {
         // int n = 42;
         // long l = n;
 
-        User u1 = new User("Tom", 42);
+        // User u1 = new User("Tom", 42);
+        User u1 = null;
         User u2 = new User("Tom", 44);
 
-        if (u1.equals(u2)) {
+        // if (u1.equals(u2)) {
+        if (Objects.equals(u1, u2)) {
             System.out.println("동일한 내용의 객체이다.");
         } else {
             System.out.println("동일한 내용의 객체가 아니다.");
