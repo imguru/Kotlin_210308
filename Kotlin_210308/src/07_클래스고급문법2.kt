@@ -41,6 +41,10 @@ fun main() {
 interface Car {
     // Car의 인터페이스를 구현하는 클래스는 반드시 아래 프로퍼티를 제공해야 합니다.
     var name: String
+    // Getter / Setter
+
+    // val age: Int
+    // Getter
 }
 
 class Truck(override var name: String) : Car
