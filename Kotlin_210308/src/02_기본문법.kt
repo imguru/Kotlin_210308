@@ -143,6 +143,7 @@ class User(private var name: String, private var age: Int) {
     }
 }
 
+/*
 fun main() {
     // final User user = new User("Tom", 42);
 
@@ -173,9 +174,34 @@ fun main() {
     } else {
         println("다른 내용")
     }
-
-
 }
+*/
+
+// 6. 기본 연산자 - 비트 연산자
+//    Java:      <<,   >>, >>>,  &, |, ^, ~
+//    Kotlin:    shl, shr, ushr, and, or, xor, inv
+
+fun main() {
+    // 2진수 리터럴 문법
+    val n = 0b11001111
+    println(n)
+
+    println(n shl 2)
+    println(n shr 2)
+    println(n ushr 2)
+
+    println(n and 0b1111)
+    println(n or 0b1111)
+    println(n xor 0b1111)
+
+    println(n.inv())
+}
+
+
+
+
+
+
 
 
 
