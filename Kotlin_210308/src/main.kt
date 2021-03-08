@@ -20,6 +20,23 @@ public class Hello {
     }
 }
 
+// Bytecode
+public class Hello {
+  public Hello();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: ldc           #3                  // String Hello, Java
+       5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       8: return
+}
+
+
 $ javac Hello.java
 // => Hello.class
 $ java Hello
@@ -28,11 +45,21 @@ $ java Hello
 fun main(args: Array<String>) {
     println("Hello, Kotlin")
 }
-*/
 
-// 1.3 버전부터
-fun main() {
-    println("Hello, Kotlin")
+public final class HelloKt {
+  public static final void main(java.lang.String[]);
+    Code:
+       0: aload_0
+       1: ldc           #9                  // String args
+       3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: ldc           #17                 // String Hello, Kotlin
+       8: astore_1
+       9: iconst_0
+      10: istore_2
+      11: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
+      14: aload_1
+      15: invokevirtual #29                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+      18: return
 }
 
 // $ kotlinc hello.kt
@@ -41,8 +68,20 @@ fun main() {
 // $ kotlin HelloKt
 
 
+// 해결 방법
+// $ kotlinc hello.kt -include-runtime -d Hello.jar
+// $ java -jar Hello.jar
+*/
+
+// 1.3 버전부터
+fun main() {
+    println("Hello, Kotlin")
+}
 
 
+// REPL(Read-Eval-Print-Loop)
+//  $ kotlinc-jvm
+//  $ kotlinc-jvm -cp joda-time-2.10.10.jar
 
 
 
