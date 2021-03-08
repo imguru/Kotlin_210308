@@ -26,6 +26,9 @@ class User {
 
 
 // 2. Builder
+//  => Boilerplate
+//  => Lombok
+/*
 class User {
     private String name;
     private String address;
@@ -64,13 +67,12 @@ class User {
         public User build() {
             return new User(this);
         }
-
-
     }
-
-
 }
+*/
 
+
+import ex5.User;
 
 public class Sample {
     public static void main(String[] args) {
@@ -85,10 +87,16 @@ public class Sample {
         // User user3 = new User(n, addr);
 
         // 2. Builder Pattern - Design Pattern O
-        User user = new User.Builder(n, addr)
-                .age(42)
-                .level(10)
-                .build();
+        // User user = new User.Builder(n, addr)
+        //        .age(42)
+        //        .level(10)
+        //        .build();
+
+        // User user = new User("Tom", "Suwon", 10, 10);
+        User user = new User("Tom", "Suwon");
+
+        // 이유: Kotlin의 문법이 Java에서 지원되지 않을 경우
+
 
     }
 }
