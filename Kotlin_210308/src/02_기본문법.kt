@@ -1,8 +1,6 @@
 // 02_기본문법.kt
 package ex2
 
-import com.lge.ex2.Sample
-
 // 1. main 함수를 만드는 방법
 // 2. 함수를 만드는 방법
 //   1) 전역함수를 만드는 것이 가능합니다.
@@ -62,10 +60,78 @@ fun add(a: Int, b: Int): Int {
 
 //        final int n = 42   // Java
 
-fun main(args: Array<String>) {
+// toString
+/*
+fun main() {
     // println(print())
     // 42.toLong()
+    val n1 = 42
+    val n2: Long = n1.toLong()
+
+    println(n2)
 }
+*/
+
+// 5. 클래스 문법
+/*
+// User.java
+public class User {
+    private String name;
+    private int age;
+
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+*/
+// - 여러 개의 public 클래스를 하나의 파일에 작성하는 것이 가능합니다.
+// - public 이 기본입니다.
+// - constructor 키워드를 통해 생성자 함수를 정의할 수 있습니다.
+/*
+public class User {
+    private var name: String
+    private var age: Int
+
+    public constructor(name: String, age: Int) {
+        this.name = name
+        this.age = age
+    }
+}
+*/
+
+// class User constructor(private var name: String, private var age: Int)
+// - constructor 생략이 가능합니다.
+
+class User(private var name: String, private var age: Int)
+
+fun main() {
+    // final User user = new User("Tom", 42);
+
+    val user1 = User("Tom", 42)
+    // val user2 = User("Tom", 42)
+    val user2 = user1
+
+    // 동등성 판단
+    //  1. 참조 동등성
+    //    user1 == user2      // Java
+    //    user1 === user2     // Kotlin
+
+    //  2. 객체 동등성
+    //    user1.equals(user2) // Java
+    //    user1 == user2      // Kotlin
+
+    if (user1 === user2) {
+        println("같은 참조값")
+    } else {
+        println("다른 참조값")
+    }
+
+
+}
+
+
+
 
 
 
