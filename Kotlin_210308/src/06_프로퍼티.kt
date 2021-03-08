@@ -32,7 +32,29 @@ class User {
 // Property
 // - var: setter + getter
 // - val: getter
-class User(var name: String, val age: Int)
+// class User(var name: String, val age: Int)
+class User {
+    var name: String
+        set(value) {
+            field = value
+            println("Setter - $value")
+        }
+        get() {
+            println("Getter - name")
+            return field
+        }
+
+    val age: Int
+        get() {
+            println("Getter - age")
+            return field
+        }
+
+    constructor(name: String, age: Int) {
+        this.name = name
+        this.age = age
+    }
+}
 
 fun main() {
     val user = User("Tom", 42)
