@@ -33,6 +33,8 @@ class User {
 // - var: setter + getter
 // - val: getter
 // class User(var name: String, val age: Int)
+// => Backing Field가 존재하는 Property
+/*
 class User {
     var name: String
         set(value) {
@@ -54,6 +56,11 @@ class User {
         this.name = name
         this.age = age
     }
+
+    fun print() {
+        println("User - $name / $age")
+    }
+
 }
 
 fun main() {
@@ -64,7 +71,30 @@ fun main() {
     println("${user.name} / ${user.age}")
     //        user.getName() / user.getAge()
 }
+*/
 
+// Backing Field가 없는 프로퍼티
+class User(var firstName: String, var lastName: String) {
+
+    // fullName - Backing Field가 없는 프로퍼티
+    //  => 가독성
+    var fullName: String
+        get() {
+            return "$firstName $lastName"
+        }
+        set(value) {
+            val arr = value.split(" ")
+            firstName = arr[0]
+            lastName = arr[1]
+        }
+
+}
+
+fun main() {
+    val user = User("Gildong", "Hong")
+    user.fullName = "Soonshin Lee"
+    println(user.fullName)
+}
 
 
 
