@@ -94,6 +94,7 @@ public class Sample {
 
         // User user = new User("Tom", "Suwon", 10, 10);
         User user = new User("Tom", "Suwon");
+        User user2 = new User("Tom", "Suwon", 10);
 
         // 이유: Kotlin의 문법이 Java에서 지원되지 않을 경우
 
