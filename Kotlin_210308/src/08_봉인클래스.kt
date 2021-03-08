@@ -1,6 +1,8 @@
 // 08_봉인클래스.kt
 package ex8
 
+import java.lang.Exception
+
 // enum
 
 // 1. enum class
@@ -27,8 +29,6 @@ enum class Color(val r: Int, val g: Int, val b: Int) {
 
 // Statement(문): 결과값이 존재하지 않습니다.
 // Expression(식): 결과값이 존재합니다.
-
-
 fun getName(color: Color): String {
     // when
     /*
@@ -46,6 +46,25 @@ fun getName(color: Color): String {
         Color.YELLOW -> "Yellow"
     }
 }
+
+// fallthrough - switch-case문에서 의도적으로 break 사용하지 않음.
+fun getWarmth(color: Color): String {
+    return when (color) {
+        Color.RED, Color.ORANGE -> "warm"
+        Color.YELLOW -> "neutral"
+        Color.GREEN -> "cold"
+    }
+}
+
+// Set<Color>
+// 임의 객체를 비교할 수 있다.
+fun mix(c1: Color, c2: Color): Color {
+    return when (setOf(c1, c2)) {
+        setOf(Color.RED, Color.YELLOW) -> Color.ORANGE
+        else -> throw Exception("Dirty color")
+    }
+}
+
 
 fun main() {
     val color = Color.RED
