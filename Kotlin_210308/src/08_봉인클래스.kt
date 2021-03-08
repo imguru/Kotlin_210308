@@ -65,7 +65,7 @@ fun mix(c1: Color, c2: Color): Color {
     }
 }
 
-
+/*
 fun main() {
     val color = Color.RED
     println(color.r)
@@ -73,3 +73,71 @@ fun main() {
 
     println(getName(color))
 }
+*/
+
+/*
+interface Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Num, val right: Num) : Expr
+// class Diff(val left: Num, val right: Num) : Expr
+
+fun eval(e: Expr): Int {
+    return when (e) {
+        is Num -> e.value
+        is Sum -> eval(e.left) + eval(e.right)
+        else ->
+            throw IllegalArgumentException("Unknown expr")
+    }
+}
+
+fun main() {
+    val left = Num(10)
+    val right = Num(32)
+    val sum = Sum(left, right)
+
+    val result = eval(sum)
+    println(result)
+}
+*/
+/*
+sealed class Expr {
+    // 봉인된 클래스: Num, Sum 이외의 자식 클래스는 존재하지 않는다.
+    class Num(val value: Int) : Expr()
+    class Sum(val left: Num, val right: Num): Expr()
+    // class Diff(val left: Num, val right: Num) : Expr()
+}
+*/
+
+// 같은 파일 안에서 봉인된 클래스에 대한 자식 클래스를 허용한다.
+sealed class Expr
+class Num(val value: Int) : Expr()
+class Sum(val left: Num, val right: Num): Expr()
+
+fun eval(e: Expr): Int {
+    return when (e) {
+        is Num -> e.value
+        is Sum -> eval(e.left) + eval(e.right)
+    }
+}
+
+fun main() {
+    val left = Num(10)
+    val right = Num(32)
+    val sum = Sum(left, right)
+
+    val result = eval(sum)
+    println(result)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
