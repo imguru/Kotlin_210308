@@ -1,7 +1,6 @@
 // 03_클래스문법.kt
 package ex3
 
-
 class Car {
     fun go() {
         println("go")
@@ -21,6 +20,7 @@ class Car {
     }
 }
 
+/*
 fun main() {
     val car = Car()
     val a = 100
@@ -49,3 +49,41 @@ fun main() {
         c,
     )
 }
+*/
+
+class Truck {
+    init {
+        println("생성자에 상관없이 객체 초기화시점에 수행되는 블록입니다.")
+    }
+
+    constructor(speed: Int) {
+        println("speed 초기화")
+
+        // println("공통된 로직")
+    }
+
+    constructor(speed: Int, color: Int) {
+        println("speed / color 초기화")
+
+        // println("공통된 로직")
+    }
+}
+
+fun main() {
+    val t1 = Truck(42)
+    val t2 = Truck(42, 100)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
