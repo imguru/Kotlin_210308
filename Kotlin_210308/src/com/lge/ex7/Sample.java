@@ -7,6 +7,7 @@ import java.io.Serializable;
 // Java
 //  - Inner class
 //   주의: 객체가 생성되면, 외부 클래스 객체에 대한 참조가 존재한다.
+//  => Iterator / Adapter
 /*
 class Button {
     class ButtonState {}
@@ -55,4 +56,9 @@ public class Sample {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(button.getCurrentState());
     }
+}
+
+interface Car {
+    // String NAME = "Tom";
+    // public final static String NAME = "Tom";
 }
