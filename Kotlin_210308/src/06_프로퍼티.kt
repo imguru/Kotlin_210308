@@ -74,6 +74,7 @@ fun main() {
 */
 
 // Backing Field가 없는 프로퍼티
+//  => 스위프트: 계산형 프로퍼티
 class User(var firstName: String, var lastName: String) {
 
     // fullName - Backing Field가 없는 프로퍼티
@@ -87,8 +88,17 @@ class User(var firstName: String, var lastName: String) {
             firstName = arr[0]
             lastName = arr[1]
         }
-
 }
+
+// 프로퍼티 vs 메소드
+// 1. 복잡한 코드 - 메소드
+// 2. 시간이 오래 거리는 작업 - 메소드
+// 3. 프로퍼티의 값을 얻는 Getter 안에서 다른 프로퍼티의 값을 변경하면 안됩니다.
+// 4. 프로퍼티안 에서는 예외가 발생하면 안됩니다.
+// 5. 다른 타입의 값이 필요한 경우 - 메소드
+//       toString()
+//       toLong()
+// 6. 객체 복제 - 메소드
 
 fun main() {
     val user = User("Gildong", "Hong")
