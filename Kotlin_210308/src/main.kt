@@ -19,12 +19,26 @@ public class Hello {
         System.out.println("Hello, Java");
     }
 }
-*/
 
+$ javac Hello.java
+// => Hello.class
+$ java Hello
+*/
+/*
 fun main(args: Array<String>) {
     println("Hello, Kotlin")
 }
+*/
 
+// 1.3 버전부터
+fun main() {
+    println("Hello, Kotlin")
+}
+
+// $ kotlinc hello.kt
+// => HelloKt.class
+
+// $ kotlin HelloKt
 
 
 
