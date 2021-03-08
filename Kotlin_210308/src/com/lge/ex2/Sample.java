@@ -7,5 +7,9 @@ public class Sample {
 
     public static void main(String[] args) {
         // System.out.println(print());
+
+        int n = 42;
+        long l = n;
+
     }
 }
