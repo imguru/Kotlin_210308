@@ -13,6 +13,7 @@ import java.lang.Exception
 // 2. enum 은 Java와 동일하게 프로퍼티와 메소드를 가질 수 있습니다.
 enum class Color(val r: Int, val g: Int, val b: Int) {
     RED(255, 0, 0),
+     BLUE(0, 0, 255),
     ORANGE(255, 165, 0),
     YELLOW(255, 255, 0),
     GREEN(0, 255, 0);
@@ -44,6 +45,7 @@ fun getName(color: Color): String {
         Color.GREEN -> "Green"
         Color.ORANGE -> "Orange"
         Color.YELLOW -> "Yellow"
+        Color.BLUE -> "Blue"
     }
 }
 
@@ -127,9 +129,15 @@ fun main() {
 
     val result = eval(sum)
     println(result)
+
+    val n = 100
+    val result2 = when (n) {
+        10 -> "xxx"
+        20 -> "yyy"
+        else -> "error"
+    }
+
 }
-
-
 
 
 
