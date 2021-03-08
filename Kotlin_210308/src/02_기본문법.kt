@@ -109,8 +109,8 @@ fun main() {
     // final User user = new User("Tom", 42);
 
     val user1 = User("Tom", 42)
-    // val user2 = User("Tom", 42)
-    val user2 = user1
+    val user2 = User("Tom", 42)
+    // val user2 = user1
 
     // 동등성 판단
     //  1. 참조 동등성
@@ -125,6 +125,12 @@ fun main() {
         println("같은 참조값")
     } else {
         println("다른 참조값")
+    }
+
+    if (user1 == user2) {
+        println("같은 내용")
+    } else {
+        println("다른 내용")
     }
 
 
