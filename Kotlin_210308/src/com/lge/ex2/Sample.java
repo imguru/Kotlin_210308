@@ -61,8 +61,18 @@ public class Sample {
     public static void main(String[] args) {
         // System.out.println(print());
 
-        int n = 42;
-        long l = n;
+        // int n = 42;
+        // long l = n;
+
+        User u1 = new User("Tom", 42);
+        User u2 = new User("Tom", 44);
+
+        if (u1.equals(u2)) {
+            System.out.println("동일한 내용의 객체이다.");
+        } else {
+            System.out.println("동일한 내용의 객체가 아니다.");
+        }
+
 
     }
 }

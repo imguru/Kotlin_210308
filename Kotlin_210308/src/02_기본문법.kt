@@ -103,7 +103,35 @@ public class User {
 // class User constructor(private var name: String, private var age: Int)
 // - constructor 생략이 가능합니다.
 
-class User(private var name: String, private var age: Int)
+// 차이점
+// - Object     ->  Any
+// - @Override  ->  override
+// - Object     ->  Any? (Nullable)
+
+class User(private var name: String, private var age: Int) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        if (other === null) {
+            return false
+        }
+
+        if (other !is User) {
+            return false
+        }
+
+        // Smart Cast: 컴파일러가 코드를 통해 타입을 자동으로 캐스팅해준다.
+
+
+
+
+
+
+    }
+}
 
 fun main() {
     // final User user = new User("Tom", 42);
