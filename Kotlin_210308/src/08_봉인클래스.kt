@@ -111,8 +111,15 @@ sealed class Expr {
 */
 
 // 같은 파일 안에서 봉인된 클래스에 대한 자식 클래스를 허용한다.
-sealed class Expr
-class Num(val value: Int) : Expr()
+sealed class Expr {
+    open var name: String = "Expr"
+}
+
+
+class Num(val value: Int) : Expr() {
+    override var name = "Num"
+}
+
 class Sum(val left: Num, val right: Num): Expr()
 
 fun eval(e: Expr): Int {
