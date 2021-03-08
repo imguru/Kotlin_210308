@@ -25,8 +25,7 @@ interface Focusable {
 }
 
 // class Button implements Clickable implements Focusable
-class Button : Clickable, Focusable {
-
+open class Button : Clickable, Focusable {
     // 다이아몬드 상속 이슈 - 상위 인터페이스가 동일한 메소드 기본 구현을 제공할 경우, 반드시 재정의가 필요합니다.
     override fun showOff() {
         super<Focusable>.showOff()
@@ -41,4 +40,27 @@ class Button : Clickable, Focusable {
         println("Button focus")
     }
 }
+
+// 상속 받는 방법
+// class MouseButton extends Button
+
+//  - Kotlin에서 class를 만들면, 기본은 상속이 금지되어 있습니다.
+//    Java: public final class XXX - 상속 금지
+//    Kotlin: class XXX
+
+//    Java:   public class XXX     - 상속 허용
+//    Kotlin: open class XXX
+
+// 상속의 문제점
+//  - 기반 클래스를 변경하는 경우 하위 클래스의 동작이 예기치 않게 변경될 수 있다.
+//  - 상속을 위한 설계와 문서를 갖추거나, 그럴 수 없다면 상속을 금지해라 => Effective Java
+
+class MouseButton : Button()
+
+
+
+
+
+
+
 
