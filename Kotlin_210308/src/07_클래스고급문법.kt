@@ -39,6 +39,15 @@ open class Button : Clickable, Focusable {
     override fun focus() {
         println("Button focus")
     }
+
+    // 코틀린의 기본 메소드는 오버라이딩이 금지되어 있습니다.
+    // Java: final void move(int x, int y) {}
+
+    // open fun: 오버라이딩 허용
+    // open class: 상속 허용
+    open fun move(x: Int, y: Int) {
+        val open = 42
+    }
 }
 
 // 상속 받는 방법
@@ -55,7 +64,11 @@ open class Button : Clickable, Focusable {
 //  - 기반 클래스를 변경하는 경우 하위 클래스의 동작이 예기치 않게 변경될 수 있다.
 //  - 상속을 위한 설계와 문서를 갖추거나, 그럴 수 없다면 상속을 금지해라 => Effective Java
 
-class MouseButton : Button()
+class MouseButton : Button() {
+    override fun move(x: Int, y: Int) {
+
+    }
+}
 
 
 
