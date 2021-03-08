@@ -1,6 +1,8 @@
 // 02_기본문법.kt
 package ex2
 
+import java.util.*
+
 // 1. main 함수를 만드는 방법
 // 2. 함수를 만드는 방법
 //   1) 전역함수를 만드는 것이 가능합니다.
@@ -115,21 +117,29 @@ class User(private var name: String, private var age: Int) {
             return true
         }
 
+        // Any?
         if (other === null) {
             return false
         }
+        // Any? -> Any
 
-        if (other !is User) {
+        // if (other !is User) {
+        //    return false
+        // }
+        // Any -> User
+        if (other.javaClass !== User::class.java) {
             return false
         }
 
+        // 명시적인 캐스트
+        other as User
+
         // Smart Cast: 컴파일러가 코드를 통해 타입을 자동으로 캐스팅해준다.
+        return age == other.age && name == other.name
+    }
 
-
-
-
-
-
+    override fun hashCode(): Int {
+        return Objects.hash(name, age)
     }
 }
 
