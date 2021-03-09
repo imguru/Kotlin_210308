@@ -41,12 +41,33 @@ fun foo(a: Char, b: Double): String {
     return ""
 }
 
+// add1 / add2
+//  (Int, Int) -> Int
+
+// typealias를 이용하면, 일반적인 타입처럼 사용할 수 있습니다.
+typealias FuncType = (Int, Int) -> Int
+
+// (Int) -> Unit
+fun print(x: Int) {
+
+}
+
 fun main() {
     // var a: Int = 42
 
     // var fn1: KFunction2<Int, Int, Int> = ::add1
     var fn1: (Int, Int) -> Int = ::add1
     fn1 = ::add2
+
+    var fn2: FuncType = ::add1
+    fn2 = ::add2
+
+
+    var result = fn1(10, 20)
+    println(result)
+
+    result = fn2(30, 40)
+    println(result)
 
     // fn1 = ::add2
 }
