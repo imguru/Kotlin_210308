@@ -84,6 +84,7 @@ class User(var firstName: String, var lastName: String) {
             return "$firstName $lastName"
         }
         set(value) {
+
             val arr = value.split(" ")
             firstName = arr[0]
             lastName = arr[1]

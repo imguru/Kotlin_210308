@@ -44,15 +44,23 @@ fun main() {
 //    : 사용자가 정의한 함수가 기존 클래스의 메소드처럼 보이게 하는 기술
 //    - 수평 확장
 
+// (String) -> Char
 // fun lastChar(text: String): Char = text[text.length - 1]
+
+// (String) -> Char
 fun String.lastChar(): Char = this[length - 1]
+
+fun Int.foo() = println("Int foo")
 
 // String. - 수신 객체 타입
 // this    - 수신 객체 참조
-
 fun main() {
+    42.foo()
+
+
     val str: String = "hello"
     // val result = lastChar(str)
+
     val result = str.lastChar()
 
     // lastChar(str) -> str.lastChar()
@@ -61,7 +69,7 @@ fun main() {
 }
 
 
-
+// Android Kotlin Extensions
 
 
 
