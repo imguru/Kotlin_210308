@@ -75,6 +75,7 @@ fun main() {
 
 // joinToString(col, ",", "[", "]")
 
+/*
 fun <T> joinToString(
     collection: Collection<T>,
     seperator: String,
@@ -84,6 +85,24 @@ fun <T> joinToString(
     val result = StringBuilder(prefix)
 
     for ((index, element) in collection.withIndex()) {
+        if (index > 0)
+            result.append(seperator)
+        result.append(element)
+    }
+
+    result.append(postfix)
+    return result.toString()
+}
+*/
+
+fun <T> Collection<T>.joinToString(
+    seperator: String,
+    prefix: String,
+    postfix: String
+): String {
+    val result = StringBuilder(prefix)
+
+    for ((index, element) in withIndex()) {
         if (index > 0)
             result.append(seperator)
         result.append(element)
@@ -107,6 +126,7 @@ fun main() {
         prefix = "[",
         postfix = "]"
     )
+
     println(result)
 }
 
