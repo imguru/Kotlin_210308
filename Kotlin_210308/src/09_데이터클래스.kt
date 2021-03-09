@@ -37,6 +37,7 @@ class User(val name: String, val age: Int) {
 }
 
 
+// - VO / DAO / DTO
 // data class User(val name: String, val age: Int)
 
 // 프로퍼티가 반드시 1개 이상 제공되어야 합니다.
