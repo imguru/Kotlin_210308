@@ -10,9 +10,17 @@ package ex14
 val String.lastChar: Char
     get() = this[length - 1]
 
+var StringBuilder.lastChar: Char
+    get() = this[length - 1]
+    set(value) = setCharAt(length - 1, value)
+
 fun main() {
     val result = "hello".lastChar
-
     // val result = "hello".lastChar()
     println(result)
+
+    val sb = StringBuilder("hello")
+    sb.lastChar = 'x'
+
+    println(sb)
 }
