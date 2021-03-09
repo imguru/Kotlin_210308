@@ -1,4 +1,3 @@
-
 // 10_object3.kt
 // 3. Anonymous object(익명 객체)
 package ex10_3
@@ -117,11 +116,9 @@ fun main() {
             println("mouseClicked")
         }
     }
-
-
+    
     window.enter()
 }
-
 
 
 
