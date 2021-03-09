@@ -3,6 +3,7 @@
 package ex11_3
 
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
 
 // 코틀린이 이미 제공하는 표준 프로퍼티 위임 객체가 존재합니다.
 
@@ -43,10 +44,27 @@ class User {
         heavyObject.play()
     }
 }
-
+/*
 fun main() {
     val user = User()
     println("User object created!")
 
     user.play()
+}
+*/
+
+// 2. 프로퍼티의 값의 변경에 따라 수행되는 로직을 캡슐화하는 목적
+//   => KVO(Key-Value Observation)
+class TextView {
+
+    // var text: String = ""
+    var text: String by Delegates.observable("") { property, oldValue, newValue ->
+        println("$oldValue -> $newValue")
+    }
+}
+
+fun main() {
+    val tv = TextView()
+    tv.text = "Tom"
+    tv.text = "Bob"
 }
