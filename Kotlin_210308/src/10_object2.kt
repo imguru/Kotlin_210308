@@ -67,6 +67,7 @@ data class Person(val name: String, val age: Int) {
 // Java: 동적 생성을 구현하기 위해서는 'Reflection'을 이용해야 합니다.
 //  startActivity
 
+// Kotlin은 companion object를 활용해서 구현하는 것이 가능합니다.
 fun <T> loadFromMap(factory: MapFactory<T>): T {
     val map = mapOf(
         "name" to "Tom",
@@ -75,7 +76,6 @@ fun <T> loadFromMap(factory: MapFactory<T>): T {
 
     return factory.fromMap(map)
 }
-
 
 fun main() {
     val person = loadFromMap(Person)

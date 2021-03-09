@@ -129,9 +129,14 @@ public class Sample {
            Intent intent = new Intent(this, MainActivity.class);
            startActivity(intent);
 
+           // Retrofit
+           // interface UserApi {
+           //   @GET("/")
+           //   Call<User> getUser();
+           // }
+
+           // UserApi api = new Retrofit.Builder().create(UserApi.class);
         */
-
-
     }
 
 
