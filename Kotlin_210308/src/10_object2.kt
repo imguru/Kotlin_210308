@@ -53,15 +53,6 @@ interface MapFactory<T> {
     fun fromMap(map: Map<String, Any>): T
 }
 
-fun <T> loadFromMap(factory: MapFactory<T>): T {
-    val map = mapOf(
-        "name" to "Tom",
-        "age" to 42,
-    )
-
-    return factory.fromMap(map)
-}
-
 data class Person(val name: String, val age: Int) {
     companion object : MapFactory<Person> {
         override fun fromMap(map: Map<String, Any>): Person {
@@ -72,6 +63,19 @@ data class Person(val name: String, val age: Int) {
         }
     }
 }
+
+// Java: 동적 생성을 구현하기 위해서는 'Reflection'을 이용해야 합니다.
+//  startActivity
+
+fun <T> loadFromMap(factory: MapFactory<T>): T {
+    val map = mapOf(
+        "name" to "Tom",
+        "age" to 42,
+    )
+
+    return factory.fromMap(map)
+}
+
 
 fun main() {
     val person = loadFromMap(Person)

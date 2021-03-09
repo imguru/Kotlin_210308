@@ -67,13 +67,81 @@ class Cursor {
 
 import ex10.Cursor;
 
+import java.lang.reflect.Constructor;
+
+// 모든 클래스는 클래스의 내부 정보를 담고 있는 class가 있습니다.
+// => 클래스의 클래스
+
+class Point {
+    private Point() {
+    }
+}
+
+class Car {
+
+}
+
+class Truck extends Car {
+    void go() {
+        System.out.println("Truck go");
+    }
+}
+
 public class Sample {
+    public static void foo(Car car) {
+        // car가 Truck이라면 go 하고 싶다.
+        if (car.getClass() == Truck.class) {
+            Truck truck = (Truck) car;
+            truck.go();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        foo(new Truck());
+        foo(new Car());
+
+        // 1. class
+        Class clazz1 = Point.class;
+
+        // Point p = new Point();
+        // 2. object
+        // Class clazz2 = p.getClass();
+
+        // 3. 문자열 - 실패 가능성이 있습니다.
+        Class clazz = Class.forName("com.lge.ex10.Point");
+
+        // Reflection - 2가지 목적
+        // 1) 정확한 타입 체크
+        // if (clazz1 == clazz2) {
+        //    System.out.println("동일한 타입입니다.");
+        // }
+
+        // 2) 동적 생성 - 클래스의 이름을 통해 객체를 생성하는 기술
+        // Point p2 = (Point)clazz.newInstance();
+        // System.out.println(p2);
+        Constructor c = clazz.getDeclaredConstructor();
+        c.setAccessible(true);
+        Point p2 = (Point) c.newInstance();
+
+        System.out.println(p2);
+
+        /*
+           Intent intent = new Intent(this, MainActivity.class);
+           startActivity(intent);
+
+        */
+
+
+    }
+
+
+    /*
     public static void main(String[] args) {
         // Cursor c = Cursor.getInstance();
         // c.move(10, 20);
 
         // Object 선언으로 만들어진 객체를 접근하는 방법
         Cursor.INSTANCE.move(10, 20);
-
     }
+    */
 }
