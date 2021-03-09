@@ -73,8 +73,6 @@ fun main() {
 }
 */
 
-
-
 fun printArea(width: Int, height: Int): Int {
     // 지역 함수
     //  => '클로저' 를 지원합니다.
