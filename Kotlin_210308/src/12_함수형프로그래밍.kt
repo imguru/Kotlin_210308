@@ -52,6 +52,7 @@ fun print(x: Int) {
 
 }
 
+/*
 fun main() {
     // var a: Int = 42
 
@@ -62,7 +63,6 @@ fun main() {
     var fn2: FuncType = ::add1
     fn2 = ::add2
 
-
     var result = fn1(10, 20)
     println(result)
 
@@ -71,7 +71,26 @@ fun main() {
 
     // fn1 = ::add2
 }
+*/
 
+
+
+fun printArea(width: Int, height: Int): Int {
+    // 지역 함수
+    //  => '클로저' 를 지원합니다.
+    //      Closure: 외부의 변수에 암묵적으로 참조 가능하다.
+    fun calc() = width * height
+    val area = calc()
+
+    // fun calc(width: Int, height: Int) = width * height
+    // val area = calc(width, height)
+
+    return area
+}
+
+fun main() {
+    printArea(100, 20)
+}
 
 
 
