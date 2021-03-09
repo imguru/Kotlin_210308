@@ -88,6 +88,7 @@ class Truck extends Car {
     }
 }
 
+/*
 public class Sample {
     public static void foo(Car car) {
         // car가 Truck이라면 go 하고 싶다.
@@ -100,9 +101,6 @@ public class Sample {
     public static void main(String[] args) throws Exception {
          // Person.Companion.fromMap()
          // Person.C.fromMap();
-
-
-
         foo(new Truck());
         foo(new Car());
 
@@ -142,7 +140,7 @@ public class Sample {
            // }
 
            // UserApi api = new Retrofit.Builder().create(UserApi.class);
-        */
+
     }
 
 
@@ -154,5 +152,61 @@ public class Sample {
         // Object 선언으로 만들어진 객체를 접근하는 방법
         Cursor.INSTANCE.move(10, 20);
     }
-    */
+
 }
+*/
+
+interface MouseAdapter {
+    void mouseClicked();
+
+    void mouseEntered();
+}
+
+class Window {
+    private MouseAdapter adapter;
+
+    public void setAdapter(MouseAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public void click() {
+        if (adapter != null) {
+            adapter.mouseClicked();
+        }
+    }
+
+    public void enter() {
+        if (adapter != null) {
+            adapter.mouseEntered();
+        }
+    }
+
+    //...
+}
+
+
+public class Sample {
+    public static void main(String[] args) {
+        Window window = new Window();
+        window.setAdapter(new MouseAdapter() {
+            @Override
+            public void mouseClicked() {
+                System.out.println("mouseClicked");
+            }
+
+            @Override
+            public void mouseEntered() {
+                System.out.println("mouseEntered");
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
