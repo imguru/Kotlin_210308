@@ -25,7 +25,11 @@ interface ValueChanged<T> {
     fun onChangedValue(old: T, new: T)
 }
 
-class SampleDelegate<T>(var field: T, val listener: ValueChanged<T>? = null, val predicate: Predicate<T>? = null) {
+class SampleDelegate<T>(
+    var field: T,
+    val listener: ValueChanged<T>? = null,
+    val predicate: Predicate<T>? = null
+) {
     // Getter
     operator fun getValue(thisRef: User, property: KProperty<*>): T {
         return field
