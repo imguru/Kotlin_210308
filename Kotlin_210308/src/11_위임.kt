@@ -44,9 +44,9 @@ class Panel(val rectangle: UIElement) : UIElement {
 */
 
 fun main() {
-     val panel = Panel(Rectangle(10, 20, 30, 40))
-     println(panel.getWidth())
-     println(panel.getHeight())
+    val panel = Panel(Rectangle(10, 20, 30, 40))
+    println(panel.getWidth())
+    println(panel.getHeight())
 }
 
 //     2. 포함
