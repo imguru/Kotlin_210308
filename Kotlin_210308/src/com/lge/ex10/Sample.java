@@ -49,26 +49,31 @@ class Cursor {
 // IODH(Initialization on Demand Holder) Singleton
 //  1. static final 에 대한 생성은 스레드 안전하다.
 //  2. 중첩 클래스의 필드는 처음 접근되는 시점에 생성된다.
-class Cursor {
-    static class Singleton {
-        private static final Cursor INSTANCE = new Cursor();
-    }
+//class Cursor {
+//    static class Singleton {
+//        private static final Cursor INSTANCE = new Cursor();
+//    }
+//
+//    private Cursor() {}
+//
+//    public static Cursor getInstance() {
+//        return Singleton.INSTANCE;
+//    }
+//
+//    public void move(int x, int y) {
+//
+//    }
+//}
 
-    private Cursor() {}
-
-    public static Cursor getInstance() {
-        return Singleton.INSTANCE;
-    }
-
-    public void move(int x, int y) {
-
-    }
-}
+import ex10.Cursor;
 
 public class Sample {
     public static void main(String[] args) {
-        Cursor c = Cursor.getInstance();
-        c.move(10, 20);
+        // Cursor c = Cursor.getInstance();
+        // c.move(10, 20);
+
+        // Object 선언으로 만들어진 객체를 접근하는 방법
+        Cursor.INSTANCE.move(10, 20);
 
     }
 }
