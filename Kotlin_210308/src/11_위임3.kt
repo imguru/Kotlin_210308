@@ -58,7 +58,7 @@ fun main() {
 class TextView {
 
     // var text: String = ""
-    var text: String by Delegates.observable("") { property, oldValue, newValue ->
+    var text: String by Delegates.observable("") { _, oldValue, newValue ->
         println("$oldValue -> $newValue")
     }
 }
