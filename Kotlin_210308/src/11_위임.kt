@@ -3,6 +3,7 @@ package ex11
 // Delegation
 //  : 하나 이상의 메소드 호출을 다른 객체에게 위임한다.
 
+// 1. 클래스 위임
 interface UIElement {
     fun getHeight(): Int
     fun getWidth(): Int
