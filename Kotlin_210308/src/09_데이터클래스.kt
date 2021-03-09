@@ -29,6 +29,9 @@ class User(val name: String, val age: Int) {
 
 data class User(val name: String, val age: Int)
 
+// 프로퍼티가 반드시 1개 이상 제공되어야 합니다.
+// data class Person
+
 fun main() {
     val user = User("Tom", 42)
 
@@ -47,5 +50,15 @@ fun main() {
     val user2 = user.copy()
     val user3 = user.copy(age = 100)     // "Tom" / 100
     val user4 = user.copy(name = "Bob")  // "Bob" / 42
+
+    // 4. 비구조화 선언
+    val users = listOf(user, user2, user3, user4)
+    for (e in users) {
+        println("${e.name} / ${e.age}")
+    }
+
+    for ((name, age) in users) {
+        println("$name / $age")
+    }
 
 }
