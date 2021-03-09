@@ -89,13 +89,18 @@ class Window {
             // var 이기 때문에, 스마트 캐스트가 불가능합니다.
          }
         */
-        val adapter = adapter
-        if (adapter != null) {
-            adapter.mouseClicked()
-        }
+        // val adapter = adapter
+        // if (adapter != null) {
+        //    adapter.mouseClicked()
+        // }
+
+        // 3. 강제 호출 - !!
+        // => Null 참조에 의한 예외 가능성이 있습니다.
+        adapter!!.mouseClicked()
     }
 
     fun enter() {
+        // 2. Optional Chaining(Swift)
         adapter?.mouseEntered()
     }
 }

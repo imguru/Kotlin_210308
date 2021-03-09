@@ -173,6 +173,8 @@ class Window {
         if (adapter != null) {
             adapter.mouseClicked();
         }
+
+        adapter.mouseClicked();
     }
 
     public void enter() {
