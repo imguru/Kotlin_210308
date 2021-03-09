@@ -95,13 +95,18 @@ fun <T> joinToString(
 
 fun main() {
     val list = listOf(10, 20, 30)
-    val result = joinToString(
-        list,
+//    val result = joinToString(
+//        list,
+//        seperator = ",",
+//        prefix = "[",
+//        postfix = "]"
+//    )
+
+    val result = list.joinToString(
         seperator = ",",
         prefix = "[",
         postfix = "]"
     )
-
     println(result)
 }
 
