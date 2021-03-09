@@ -54,7 +54,12 @@ interface MapFactory<T> {
 }
 
 data class Person(val name: String, val age: Int) {
-    companion object : MapFactory<Person> {
+    // Kotlin: Person.fromMap(...)
+    //   Java: Person.Companion.fromMap()
+
+    // companion object에 이름 부여가 가능하다.
+    // => Java에만 영향을 미친다.
+    companion object C : MapFactory<Person> {
         override fun fromMap(map: Map<String, Any>): Person {
             val name = map["name"] as String
             val age = map["age"] as Int

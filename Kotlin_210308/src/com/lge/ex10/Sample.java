@@ -66,6 +66,7 @@ class Cursor {
 //}
 
 import ex10.Cursor;
+import ex10_2.Person;
 
 import java.lang.reflect.Constructor;
 
@@ -97,6 +98,11 @@ public class Sample {
     }
 
     public static void main(String[] args) throws Exception {
+         // Person.Companion.fromMap()
+         // Person.C.fromMap();
+
+
+
         foo(new Truck());
         foo(new Car());
 
