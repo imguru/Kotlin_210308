@@ -1,6 +1,8 @@
 // 13_확장함수.kt
 package ex13
 
+import java.lang.StringBuilder
+
 /*
 class User {
     // (Int, Int) -> Unit
@@ -54,10 +56,9 @@ fun Int.foo() = println("Int foo")
 
 // String. - 수신 객체 타입
 // this    - 수신 객체 참조
+/*
 fun main() {
     42.foo()
-
-
     val str: String = "hello"
     // val result = lastChar(str)
 
@@ -67,10 +68,42 @@ fun main() {
 
     println(result)
 }
+*/
 
+// Collection
+//  list - [ 1, 2, 3 ]  =>  "[1, 2, 3]"
 
-// Android Kotlin Extensions
+// joinToString(col, ",", "[", "]")
 
+fun <T> joinToString(
+    collection: Collection<T>,
+    seperator: String,
+    prefix: String,
+    postfix: String
+): String {
+    val result = StringBuilder(prefix)
+
+    for ((index, element) in collection.withIndex()) {
+        if (index > 0)
+            result.append(seperator)
+        result.append(element)
+    }
+
+    result.append(postfix)
+    return result.toString()
+}
+
+fun main() {
+    val list = listOf(10, 20, 30)
+    val result = joinToString(
+        list,
+        seperator = ",",
+        prefix = "[",
+        postfix = "]"
+    )
+
+    println(result)
+}
 
 
 
