@@ -36,6 +36,7 @@ class User private constructor(val nickname: String) {
     }
 }
 
+/*
 fun main() {
     // val user = User("hello@gmail.com")
     // val user = User(1234556)
@@ -43,8 +44,39 @@ fun main() {
     val user1 = User.newSubscribingUser("hello@gmail.com")
     val user2 = User.newFacebookUser(1234556)
 }
+*/
 
+// Map<String, Any> => JSON
+// { "name": "Tom", "age": 42 }  =>  User(name="Tom", age=42)
 
+interface MapFactory<T> {
+    fun fromMap(map: Map<String, Any>): T
+}
+
+fun <T> loadFromMap(factory: MapFactory<T>): T {
+    val map = mapOf(
+        "name" to "Tom",
+        "age" to 42,
+    )
+
+    return factory.fromMap(map)
+}
+
+data class Person(val name: String, val age: Int) {
+    companion object : MapFactory<Person> {
+        override fun fromMap(map: Map<String, Any>): Person {
+            val name = map["name"] as String
+            val age = map["age"] as Int
+
+            return Person(name, age)
+        }
+    }
+}
+
+fun main() {
+    val person = loadFromMap(Person)
+    println(person)
+}
 
 
 
