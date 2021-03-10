@@ -1,6 +1,9 @@
 // 18_커링.kt
 package ex18
 
+import java.lang.Appendable
+import java.time.LocalDateTime
+
 // 커링(Currying)
 // : 다중 인수를 갖는 함수를 단일 인수를 갖는 함수들의 함수열로 바꾸는 작업
 
@@ -77,6 +80,7 @@ fun <P1, P2, P3, R> ((P1, P2, P3) -> R).curried(): (P1) -> (P2) -> (P3) -> R = {
 }
 
 // 부분 적용
+/*
 fun main() {
     sum2(10, 30)
     sum2(10, 50)
@@ -100,6 +104,38 @@ fun main() {
     result = csum3(10)(20)(30)
     println(result)
 }
+*/
+
+enum class Level { INFO, WARN, ERROR }
+
+// 로깅 라이브러리
+fun log(level: Level, appendable: Appendable, message: String) {
+    appendable.appendLine("[${level.name}]:[${LocalDateTime.now()}]: $message")
+}
+
+//-------------------
+fun compute(logger: ((String) -> Unit)? = null) {
+    logger?.invoke("Compute 시작")
+    logger?.invoke("Compute 수행 중")
+    logger?.invoke("Compute 완료")
+}
+
+fun main() {
+    // 1. 람다 표현식
+    compute { message ->
+        log(Level.INFO, System.out, message)
+    }
+
+    println("----------")
+
+    // 2. 커링
+    val infoLogger = ::log.curried()(Level.INFO)(System.out)
+    compute(infoLogger)
+
+    infoLogger("프로그램 종료")
+}
+
+
 
 
 
