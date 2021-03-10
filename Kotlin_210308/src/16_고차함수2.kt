@@ -8,8 +8,8 @@ interface Predicate<T> {
     fun test(e: T): Boolean
 }
 
-fun filter(data: List<Int>, predicate: Predicate<Int>): List<Int> {
-    val result = mutableListOf<Int>()
+fun <E> filter(data: List<E>, predicate: Predicate<E>): List<E> {
+    val result = mutableListOf<E>()
 
     for (e in data) {
         if (predicate.test(e)) {
