@@ -22,6 +22,9 @@ package ex16
 //    Map - MutableMap
 
 
+// 공통성과 가변성의 분리
+//  => 변하지 않는 전체 알고리즘에서 변해야 하는 정책을 분리해야 한다.
+
 fun filterEven(data: List<Int>): List<Int> {
     val result = mutableListOf<Int>()
 
@@ -34,9 +37,24 @@ fun filterEven(data: List<Int>): List<Int> {
     return result
 }
 
+fun filterOdd(data: List<Int>): List<Int> {
+    val result = mutableListOf<Int>()
 
+    for (e in data) {
+        if (e % 2 == 1) {
+            result.add(e)
+        }
+    }
+
+    return result
+}
 
 fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
+    var result = filterEven(list)
+    println(result)
+
+    result = filterOdd(list)
+    println(result)
 }
