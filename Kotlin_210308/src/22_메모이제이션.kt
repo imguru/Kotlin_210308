@@ -20,7 +20,6 @@ fun fib(k: Int): Long = cache.getOrPut(k) {
     }
 }
 
-
 /*
 fun fib(k: Int): Long = when (k) {
     0, 1 -> 1
