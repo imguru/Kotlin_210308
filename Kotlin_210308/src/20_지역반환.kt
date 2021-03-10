@@ -10,7 +10,7 @@ fun lookForAlice1(people: List<Person>) {
 
         if (person.name == "Alice") {
             println("Found!!!")
-            return
+            break
         }
     }
 
@@ -18,10 +18,11 @@ fun lookForAlice1(people: List<Person>) {
 }
 
 // 2. for-loop => forEach
-fun lookForAlice(people: List<Person>) {
-    people.forEach { person ->
+fun lookForAlice2(people: List<Person>) {
+    people.forEach hello@{ person ->
         if (person.name == "Tom") {
-            return@forEach               // 지역 반환
+            // return@forEach               // 지역 반환
+            return@hello
         }
 
         if (person.name == "Alice") {
@@ -33,6 +34,32 @@ fun lookForAlice(people: List<Person>) {
     println("Failed to find Alice")
 }
 
+// 익명 함수
+fun lookForAlice3(people: List<Person>) {
+
+    people.forEach(fun(person) {
+        if (person.name == "Alice") {
+            println("Found!!")
+            // return                      // 지역 반환
+            return@lookForAlice3           // 비지역 반환
+        }
+    })
+
+    println("Failed to find Alice")
+}
+
+fun lookForAlice(people: List<Person>) {
+    run {
+        people.forEach { person ->
+            if (person.name == "Alice") {
+                println("Found!!!")
+                return@run                   // break
+            }
+        }
+    }
+
+    println("Failed to find Alice")
+}
 
 fun main() {
     val list = listOf(
@@ -42,6 +69,4 @@ fun main() {
     )
 
     lookForAlice(list)
-
-
 }
