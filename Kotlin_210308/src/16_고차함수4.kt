@@ -16,6 +16,9 @@ fun goo(): (String) -> String = { str: String ->
 }
 
 fun main() {
+    val f = ::foo
+    
+
     val fp: (String) -> String = goo() // foo()
 
     val result = fp("hello")
