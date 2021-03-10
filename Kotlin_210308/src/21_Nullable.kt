@@ -27,6 +27,7 @@ fun foo(activity: Activity) {}
 
 // Fragment
 //  onCreatedView
+/*
 fun main() {
     activity?.let {
         // ...
@@ -51,9 +52,8 @@ fun main() {
     // val activity = activity ?: Activity()
     val activity = activity ?: return
     foo(activity)
-
-
 }
+*/
 
 
 /*
@@ -73,8 +73,44 @@ fun main() {
 }
 */
 
-/*
+class Country(val city: City?)
+class City(val address: Address?)
+class Address(val name: String)
+
+open class Car
+class Truck : Car()
+class Sedan : Car() {
+    fun go() {}
+}
+
 fun main() {
+    val country = Country(City(Address("Suwon")))
+    if (country.city != null) {
+        if (country.city.address != null) {
+            println(country.city.address.name)
+        }
+    }
+
+    country.city?.address?.name?.let { name ->
+        println(name)
+    }
+
+    val car: Car = Truck()
+    val sedan: Sedan? = car as? Sedan
+    sedan?.go()
+
+    (car as? Sedan)?.go()
+
+
+//    if (car is Sedan) {
+//        val sedan = car as Sedan
+//    }
+
+
+
+
+
+
     email = "hello@gmail.com"
 
     val user = User()
@@ -93,5 +129,7 @@ fun main() {
     if (email != null) {
         user.sendEmail(email)
     }
+
+    val email2 = email ?: "support@gmail.com"
+    user.sendEmail(email2)
 }
-*/
