@@ -6,11 +6,46 @@ import java.util.concurrent.locks.ReentrantLock
 
 // Kotlin 에서는 synchronized 키워드가 제공되지 않습니다.
 
+fun <T> withLock(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    } finally {
+        lock.unlock()
+    }
+}
+
 class IncThread(val lock: Lock) : Thread() {
     companion object {
         var n = 0
     }
 
+    override fun run() {
+
+        for (i in 1..1_000_000) {
+            withLock(lock) {
+                n += 1
+            }
+        }
+    }
+
+
+    /*
+    override fun run() {
+        // Kotlin - Range
+        for (i in 1..1_000_000) {
+            try {
+                lock.lock()
+                n += 1
+            } finally {
+                lock.unlock()
+            }
+        }
+    }
+    */
+
+    // 임계영역에서 예외가 발생하면, 데드락의 위험성이 있습니다.
+    /*
     override fun run() {
         // Kotlin - Range
         for (i in 1..1_000_000) {
@@ -19,6 +54,7 @@ class IncThread(val lock: Lock) : Thread() {
             lock.unlock()
         }
     }
+    */
 }
 
 
