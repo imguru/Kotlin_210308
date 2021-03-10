@@ -18,13 +18,17 @@ fun compose(f: (String) -> Int, g: (Any) -> Int) : (String) -> Int = { x ->
     g(f(x))
 }
 
-
 // String.length : (String) -> Int  : f(x)
 // Any.hashCode  : (Any) -> Int     : g(y)
-
 fun main() {
-    val str = "hello"
-    println(str.length)   // (String) -> Int
+    val f: (String) -> Int = String::length
+    val g: (Any) -> Int = Any::hashCode
 
-    println(str.hashCode())
+    val h = compose(f, g)
+    val result = h("hello")
+    println(result)
+
+    // val str = "hello"
+    // println(str.length)   // (String) -> Int
+    // println(str.hashCode())
 }
