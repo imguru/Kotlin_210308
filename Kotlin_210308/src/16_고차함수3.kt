@@ -65,18 +65,23 @@ class MainActivity {
         }
 
         val button = Button()
+        button.name = "xxx"
 
-        button.setOnClickListener(object : OnClickListener {
+        button.onClickListener = object : OnClickListener {
             override fun onClick() {
                 val intent = Intent(this@MainActivity, MainActivity::class.java)
                 // startActivity(intent)
             }
-        })
+        }
 
         // SAM(Single Abstract Method) 지원
         // => Functional Interface
         //  : 자바의 Functional Interface를 코틀린에서 이용할 때 람다 표현식으로 사용할 수 있습니다.
         button.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+        }
+
+        button.onClickListener = OnClickListener {
             val intent = Intent(this, MainActivity::class.java)
         }
 
