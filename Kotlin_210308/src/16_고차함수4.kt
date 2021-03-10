@@ -57,6 +57,9 @@ fun main() {
 
     result = list.filter(isOdd)
     println(result)
+
+    result = list.filter(module2(2, 1))
+    println(result)
 }
 
 
