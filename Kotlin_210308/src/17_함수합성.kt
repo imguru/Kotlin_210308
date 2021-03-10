@@ -3,9 +3,24 @@ package ex17
 
 // f(x) -> y
 // g(y) -> z
+//--------------
 // h(x) -> z
 
 // x -> f(x)  -> y ->  g(y)  ->  z
+
+fun add(x: Int, y: Int): Int {
+    return x + y
+}
+
+fun add2(x: Int, y: Int): Int = x + y
+
+fun compose0(f: (String) -> Int, g: (Any) -> Int): (String) -> Int {
+    return { x ->
+        val y = f(x)
+        val z = g(y)
+        z
+    }
+}
 
 fun compose1(f: (String) -> Int, g: (Any) -> Int): (String) -> Int = { x ->
     val y = f(x)
@@ -21,6 +36,9 @@ fun compose2(f: (String) -> Int, g: (Any) -> Int): (String) -> Int = { x ->
 // g(B) -> C
 //-----------
 // h(A) -> C
+
+// A -> f(A) -> B - > g(B) -> C -> h(C) -> D
+// Java 8 - Stream API
 
 // 1. 일반화
 fun <A, B, C> compose3(f: (A) -> B, g: (B) -> C): (A) -> C = { x ->
