@@ -21,12 +21,17 @@ fun <E> filter(data: List<E>, predicate: Predicate<E>): List<E> {
     return result
 }
 
+object OddNumber : Predicate<Int> {
+    override fun test(e: Int): Boolean = e % 2 == 0
+}
+
 fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-    var result = filter(list, object : Predicate<Int> {
-        override fun test(e: Int): Boolean = e % 2 == 0
-    })
+//    var result = filter(list, object : Predicate<Int> {
+//        override fun test(e: Int): Boolean = e % 2 == 0
+//    })
+    var result = filter(list, OddNumber)
     println(result)
 
     result = filter(list, object : Predicate<Int> {
