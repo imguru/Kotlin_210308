@@ -5,9 +5,21 @@ import com.google.gson.GsonBuilder
 
 // Gson - JSON Serialization
 data class User(val name: String, val age: Int)
+data class Car(val name: String, val color: Int, val speed: Int)
 
 // JSON Serialization
+/*
 fun User.toJson(): String {
+    println("User.toJson()")
+
+    val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .create()
+
+    return gson.toJson(this)
+}
+*/
+fun <T> T.toJson(): String {
     println("User.toJson()")
 
     val gson = GsonBuilder()
@@ -30,6 +42,10 @@ fun <A, B> ((A) -> B).memoized(): (A) -> B {
 fun main() {
     val user1 = User("Tom", 42)
     val user2 = User("Tom", 42)
+
+    val toJsonCar = Car::toJson.memoized()
+    println(toJsonCar(Car("BMW", 100, 200)))
+    println(toJsonCar(Car("BMW", 100, 200)))
 
     val toJson = User::toJson.memoized()
     println(toJson(user1))
