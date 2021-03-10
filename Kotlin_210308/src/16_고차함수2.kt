@@ -1,23 +1,18 @@
 // 16_고차함수2.kt
 package ex16_2
 
-fun filterEven(data: List<Int>): List<Int> {
-    val result = mutableListOf<Int>()
+// 정책을 분리하는 방법 - 동작 파라미터화 설계
+//  => 인터페이스 기반의 클래스를 통해 정책을 분리한다.
 
-    for (e in data) {
-        if (e % 2 == 0) {
-            result.add(e)
-        }
-    }
-
-    return result
+interface Predicate<T> {
+    fun test(e: T): Boolean
 }
 
-fun filterOdd(data: List<Int>): List<Int> {
+fun filter(data: List<Int>, predicate: Predicate<Int>): List<Int> {
     val result = mutableListOf<Int>()
 
     for (e in data) {
-        if (e % 2 == 1) {
+        if (predicate.test(e)) {
             result.add(e)
         }
     }
@@ -28,9 +23,14 @@ fun filterOdd(data: List<Int>): List<Int> {
 fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-    var result = filterEven(list)
+    var result = filter(list, object : Predicate<Int> {
+        override fun test(e: Int): Boolean = e % 2 == 0
+    })
     println(result)
 
-    result = filterOdd(list)
+    result = filter(list, object : Predicate<Int> {
+        override fun test(e: Int): Boolean = e % 2 == 1
+    })
+
     println(result)
 }
