@@ -3,6 +3,7 @@ package ex19
 
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 // Kotlin 에서는 synchronized 키워드가 제공되지 않습니다.
 
@@ -22,17 +23,29 @@ class IncThread(val lock: Lock) : Thread() {
         var n = 0
     }
 
-    // withLock의 호출이 오버헤드가 된다.
-    //  => 함수를 인자로 전달받는 함수에 대해서, inline 함수를 지원합니다.
     override fun run() {
 
         for (i in 1..1_000_000) {
-            withLock(lock) {
+            // Kotlin이 제공하는 동기화의 방법.
+            lock.withLock {
                 n += 1
             }
         }
 
     }
+
+
+    // withLock의 호출이 오버헤드가 된다.
+    //  => 함수를 인자로 전달받는 함수에 대해서, inline 함수를 지원합니다.
+    /*
+    override fun run() {
+        for (i in 1..1_000_000) {
+            withLock(lock) {
+                n += 1
+            }
+        }
+    }
+    */
 
 
     /*
