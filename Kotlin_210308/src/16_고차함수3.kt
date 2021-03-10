@@ -40,13 +40,33 @@ fun subscribe(
 //    }
 //}
 
+// 1.3 까지는 허용되지 않습니다.
+// 1.4 - 코틀린의 인터페이스에 대해서도 'SAM' 을 지원합니다.
+//  : fun interface
+fun interface OnClickListener2 {
+    fun onClick()
+}
+
 class Intent(context: MainActivity, clazz: Class<MainActivity>)
 
 class MainActivity {
+    var onClickListener: OnClickListener2? = null
+
     fun onCreate() {
+        onClickListener = object : OnClickListener2 {
+            override fun onClick() {
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+            }
+        }
+
+        onClickListener = OnClickListener2 {
+            println("xxx")
+            val intent = Intent(this, MainActivity::class.java)
+        }
+
         val button = Button()
 
-        button.setOnClickListener(object: OnClickListener {
+        button.setOnClickListener(object : OnClickListener {
             override fun onClick() {
                 val intent = Intent(this@MainActivity, MainActivity::class.java)
                 // startActivity(intent)
@@ -64,13 +84,12 @@ class MainActivity {
 }
 
 
-
 fun main() {
 //    val button = Button()
 //    button.onClick = {
 //        println("xxx")
 //    }
-    
+
 
     subscribe({
 
