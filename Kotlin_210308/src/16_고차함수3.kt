@@ -41,6 +41,8 @@ fun subscribe(
 //    }
 //}
 
+// Kotlin -> JVM(Java)
+
 // 1.3 까지는 허용되지 않습니다.
 // 1.4 - 코틀린의 인터페이스에 대해서도 'SAM' 을 지원합니다.
 //  : fun interface
