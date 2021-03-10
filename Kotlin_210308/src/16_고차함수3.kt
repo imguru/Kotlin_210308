@@ -3,8 +3,6 @@ package ex16_3
 
 // 함수를 이용해서 정책을 전달하는 방법
 //  => Java를 제외한 대부분의 언어가 사용하는 방식
-
-
 fun <E> filter(data: List<E>, test: (E) -> Boolean): List<E> {
     val result = mutableListOf<E>()
 
@@ -22,7 +20,33 @@ fun <E> filter(data: List<E>, test: (E) -> Boolean): List<E> {
 fun isEven(e: Int) = e % 2 == 0
 fun isOdd(e: Int) = e % 2 == 1
 
+fun subscribe(
+    onNext: () -> Unit,
+    onError: (Error) -> Unit,
+    onComplete: () -> Unit
+) {
+
+}
+
+
 fun main() {
+    subscribe({
+
+    }, {
+
+    }) {
+
+    }
+
+    // 함수의 인자가 여러 개의 함수를 받을 경우, 파라미터 라벨 지정 호출이 좋습니다.
+    subscribe(onNext = {
+
+    }, onError = {
+
+    }, onComplete = {
+
+    })
+
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
     var result = filter(list, ::isEven)
