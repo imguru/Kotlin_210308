@@ -83,6 +83,13 @@ class Sedan : Car() {
     fun go() {}
 }
 
+// 코틀린에서는 null을 통해 실패를 처리할 경우, 편리하게 사용 가능 합니다.
+//  => Safe null access operator
+//     user?.email
+//  => let 구문 (범위 지정 함수)
+
+// 코틀린에서는 'Checked Exception'이 존재하지 않습니다. - 위험하다
+
 fun main() {
     val country = Country(City(Address("Suwon")))
     if (country.city != null) {
