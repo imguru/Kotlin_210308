@@ -2,7 +2,8 @@
 package ex16_3
 
 import com.lge.ex16.Button
-import com.lge.ex16.OnClickListener
+import com.lge.ex16.OnClickListener as JOnClickListener
+// 패키지의 이름 충돌이 발생하였을 경우, 위와 같이 다른 이름으로 사용이 가능합니다.
 
 // 함수를 이용해서 정책을 전달하는 방법
 //  => Java를 제외한 대부분의 언어가 사용하는 방식
@@ -43,23 +44,23 @@ fun subscribe(
 // 1.3 까지는 허용되지 않습니다.
 // 1.4 - 코틀린의 인터페이스에 대해서도 'SAM' 을 지원합니다.
 //  : fun interface
-fun interface OnClickListener2 {
+fun interface OnClickListener {
     fun onClick()
 }
 
 class Intent(context: MainActivity, clazz: Class<MainActivity>)
 
 class MainActivity {
-    var onClickListener: OnClickListener2? = null
+    var onClickListener: OnClickListener? = null
 
     fun onCreate() {
-        onClickListener = object : OnClickListener2 {
+        onClickListener = object : OnClickListener {
             override fun onClick() {
                 val intent = Intent(this@MainActivity, MainActivity::class.java)
             }
         }
 
-        onClickListener = OnClickListener2 {
+        onClickListener = OnClickListener {
             println("xxx")
             val intent = Intent(this, MainActivity::class.java)
         }
@@ -67,7 +68,7 @@ class MainActivity {
         val button = Button()
         button.name = "xxx"
 
-        button.onClickListener = object : OnClickListener {
+        button.onClickListener = object : JOnClickListener {
             override fun onClick() {
                 val intent = Intent(this@MainActivity, MainActivity::class.java)
                 // startActivity(intent)
@@ -81,7 +82,7 @@ class MainActivity {
             val intent = Intent(this, MainActivity::class.java)
         }
 
-        button.onClickListener = OnClickListener {
+        button.onClickListener = JOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
         }
 
