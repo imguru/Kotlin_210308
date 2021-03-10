@@ -23,7 +23,7 @@ fun sum2(x: Int) : (Int) -> Int = { y: Int ->
 }
 */
 
-fun xsum2(x: Int) : (Int) -> Int = { y: Int ->
+fun xsum2(x: Int): (Int) -> Int = { y: Int ->
     x + y
 }
 
@@ -62,13 +62,13 @@ fun main() {
 
 // val csum2 = sum2.curried()
 
-fun<P1, P2, R> ((P1, P2) -> R).curried() : (P1) -> (P2) -> R = { p1 ->
+fun <P1, P2, R> ((P1, P2) -> R).curried(): (P1) -> (P2) -> R = { p1 ->
     { p2 ->
         this(p1, p2)
     }
 }
 
-fun<P1, P2, P3, R> ((P1, P2, P3) -> R).curried() : (P1) -> (P2) -> (P3) -> R = { p1 ->
+fun <P1, P2, P3, R> ((P1, P2, P3) -> R).curried(): (P1) -> (P2) -> (P3) -> R = { p1 ->
     { p2 ->
         { p3 ->
             this(p1, p2, p3)
@@ -76,7 +76,22 @@ fun<P1, P2, P3, R> ((P1, P2, P3) -> R).curried() : (P1) -> (P2) -> (P3) -> R = {
     }
 }
 
+// 부분 적용
 fun main() {
+    sum2(10, 30)
+    sum2(10, 50)
+    sum2(10, 60)
+
+    // 커링을 사용하면 인자를 고정하는 것이 가능하다.
+    // => 함수를 설계할 때, 인자의 변동 가능성이 낮은 순서대로 배치하는 것이 좋다.
+    val plus10 = ::sum2.curried()(10)
+    val plus3_2 = ::sum3.curried()(3)(2)
+
+    println(plus10(30))
+    println(plus10(20))
+
+    println(plus3_2(10))  // 15
+
     val csum2 = ::sum2.curried()
     var result = csum2(10)(20)
     println(result)
