@@ -6,7 +6,9 @@ import java.util.concurrent.locks.ReentrantLock
 
 // Kotlin 에서는 synchronized 키워드가 제공되지 않습니다.
 
-fun <T> withLock(lock: Lock, action: () -> T): T {
+// inline: 함수를 호출하는 것이 아니라, 바이트 코드를 치환하는 기술
+//  - 함수를 인자로 받는 고차 함수에서만 사용할 수 있습니다.
+inline fun <T> withLock(lock: Lock, action: () -> T): T {
     lock.lock()
     try {
         return action()
@@ -20,6 +22,8 @@ class IncThread(val lock: Lock) : Thread() {
         var n = 0
     }
 
+    // withLock의 호출이 오버헤드가 된다.
+    //  => 함수를 인자로 전달받는 함수에 대해서, inline 함수를 지원합니다.
     override fun run() {
 
         for (i in 1..1_000_000) {
@@ -27,6 +31,7 @@ class IncThread(val lock: Lock) : Thread() {
                 n += 1
             }
         }
+
     }
 
 
