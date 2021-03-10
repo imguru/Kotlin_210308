@@ -25,13 +25,39 @@ class Truck : Car()
 // 함수 호출을 하지 않고 인라인 치환을 하면 사용 가능하다.
 inline fun <reified T> isA(value: Any) = value is T
 
+
+open class Activity
+class MainActivity : Activity()
+class Intent(context: Any?, clazz: Class<out Activity>)
+
+fun startActivity(intent: Intent) {}
+
+inline fun <reified T : Activity> startActivity() {
+    val intent = Intent(null, T::class.java)
+    startActivity(intent)
+}
+
+fun main() {
+    // val intent = Intent(null, MainActivity::class.java)
+    // startActivity(intent)
+
+    // val textView = findViewById<TextView>(R.id.textView)
+    // TextView textView = (TextView)findViewId(r.id.textView)
+
+    // Anko
+    startActivity<MainActivity>()
+}
+
+
+/*
 fun main() {
     val car1 = Car()
     val car2 = Truck()
 
-     println(car1 is Car)
-     println(car2 is Truck)
+    println(car1 is Car)
+    println(car2 is Truck)
 
     println(isA<Truck>(car1))
     println(isA<Car>(car2))
 }
+*/
