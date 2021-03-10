@@ -50,8 +50,12 @@ fun main() {
     val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
     val isEven = modulo1(2, 0)
-    val result = list.filter(isEven)
+    val isOdd = modulo1(2, 1)
 
+    var result = list.filter(isEven)
+    println(result)
+
+    result = list.filter(isOdd)
     println(result)
 }
 
