@@ -16,7 +16,6 @@ package ex12
 
 // 1. 단일 표현식 함수
 //   => 간단한 한줄 정도의 함수를 간결하게 표현할 수 있습니다.
-
 fun add1(a: Int, b: Int): Int {
     return a + b
 }

@@ -6,7 +6,7 @@ import java.lang.StringBuilder
 /*
 class User {
     // (Int, Int) -> Unit
-    //  => (User, Int, Int) -> Unit
+    //  => (User this, Int, Int) -> Unit
     fun move(x: Int, y: Int) {
         println("User move")
     }
@@ -45,6 +45,9 @@ fun main() {
 // => 확장 함수
 //    : 사용자가 정의한 함수가 기존 클래스의 메소드처럼 보이게 하는 기술
 //    - 수평 확장
+//      C#: Extension Function
+//   Swift: Extension
+//    ObjC: Category
 
 // (String) -> Char
 // fun lastChar(text: String): Char = text[text.length - 1]
