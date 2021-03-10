@@ -38,13 +38,27 @@ inline fun <T, R> with2(receiver: T, block: T.() -> R): R {
 // with
 //  => 수신 객체(this) 지정 람다 표현식
 fun alphabet_with2(): String =
-    with2(StringBuilder()) {
+    with(StringBuilder()) {
         for (letter in 'A'..'Z') {
             append(letter)
         }
         append("\n")
         return toString()
     }
+
+
+inline fun <T> T.apply1(block: T.() -> Unit): T {
+    block()
+    return this
+}
+
+// apply
+fun alphabet_apply(): String = StringBuilder().apply {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\n")
+}.toString()
 
 fun main() {
 
