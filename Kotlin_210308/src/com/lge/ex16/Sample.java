@@ -31,6 +31,20 @@ public class Sample {
     }
 
     public static void main(String[] args) {
+        Button button = new Button();
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick() {
+                System.out.println("xxx");
+            }
+        });
+
+
+
+
+
+
+
         List<Integer> data = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
         int n = 10;

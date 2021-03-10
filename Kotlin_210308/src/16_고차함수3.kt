@@ -1,6 +1,9 @@
 // 16_고차함수.kt
 package ex16_3
 
+import com.lge.ex16.Button
+import com.lge.ex16.OnClickListener
+
 // 함수를 이용해서 정책을 전달하는 방법
 //  => Java를 제외한 대부분의 언어가 사용하는 방식
 fun <E> filter(data: List<E>, test: (E) -> Boolean): List<E> {
@@ -28,8 +31,47 @@ fun subscribe(
 
 }
 
+//class Button {
+//    var onClick: (() -> Unit)? = null
+//
+//    fun click() {
+//        // onClick?() - Kotlin X
+//        onClick?.invoke()
+//    }
+//}
+
+class Intent(context: MainActivity, clazz: Class<MainActivity>)
+
+class MainActivity {
+    fun onCreate() {
+        val button = Button()
+
+        button.setOnClickListener(object: OnClickListener {
+            override fun onClick() {
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                // startActivity(intent)
+            }
+        })
+
+        // SAM(Single Abstract Method) 지원
+        // => Functional Interface
+        //  : 자바의 Functional Interface를 코틀린에서 이용할 때 람다 표현식으로 사용할 수 있습니다.
+        button.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+        }
+
+    }
+}
+
+
 
 fun main() {
+//    val button = Button()
+//    button.onClick = {
+//        println("xxx")
+//    }
+    
+
     subscribe({
 
     }, {
