@@ -14,18 +14,34 @@ package ex18
 //  fun sum(x: Int)(y: Int)(z: Int) -> Int
 
 // sum(10, 20)  => 30
-fun sum(x: Int, y: Int): Int = x + y
+fun sum2(x: Int, y: Int): Int = x + y
 
 // sum(x)(y)  => 30
-fun sum(x: Int) : (Int) -> Int = { y: Int ->
+fun sum2(x: Int) : (Int) -> Int = { y: Int ->
     x + y
 }
 
+// sum(10, 20, 30)
+fun sum3(x: Int, y: Int, z: Int) = x + y + z
+
+// sum(10)(20)(30) => 60
+fun sum3(x: Int) : (Int) -> (Int) -> Int = { y ->
+    { z ->
+        x + y + z
+    }
+}
+
 fun main() {
-    var result = sum(10, 20)
+    var result = sum2(10, 20)
     println(result)
 
-    result = sum(10)(20)
+    result = sum2(10)(20)
+    println(result)
+
+    result = sum3(10, 20, 30)
+    println(result)
+
+    result = sum3(10)(20)(30)
     println(result)
 }
 
