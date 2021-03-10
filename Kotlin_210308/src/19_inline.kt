@@ -26,14 +26,13 @@ class IncThread(val lock: Lock) : Thread() {
     override fun run() {
 
         for (i in 1..1_000_000) {
-            // Kotlin이 제공하는 동기화의 방법.
+            // Kotlin이 제공하는 동기화의 방법. => Lock.withLock
             lock.withLock {
                 n += 1
             }
         }
 
     }
-
 
     // withLock의 호출이 오버헤드가 된다.
     //  => 함수를 인자로 전달받는 함수에 대해서, inline 함수를 지원합니다.
