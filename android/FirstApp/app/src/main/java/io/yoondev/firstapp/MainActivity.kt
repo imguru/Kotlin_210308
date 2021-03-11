@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
         // - 권장
         // android:id="@+id/helloButton"
         // android:id="@+id/hello_button"
-        binding.helloButton.setOnClickListener {
-            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
-        }
+        // binding.helloButton.setOnClickListener {
+        //    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
+        // }
 
         val pref = getSharedPreferences("firstapp", Context.MODE_PRIVATE)
         val editor = pref.edit()
