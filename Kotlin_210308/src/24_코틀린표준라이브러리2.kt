@@ -74,11 +74,16 @@ data class Sample(val name: String)
 fun main() {
     val list1 = listOf(1, 2, 3, 4, 5)
     val list2 = listOf(
-        User("Tom", 42),
-        User("Tom", 42),
-        User("Tom", 42),
-        User("Tom", 42),
-        User("Tom", 42),
+        User("Tom", 10),
+        User("Tom", 20),
+        User("Tom", 30),
+        User("Tom", 40),
+        User("Tom", 50),
+        User("Bob", 10),
+        User("Bob", 20),
+        User("Bob", 30),
+        User("Bob", 40),
+        User("Bob", 50),
     )
 
     // zip
@@ -86,6 +91,24 @@ fun main() {
     val result = list1.zip(list2) { a: Int, b: User ->
         "$a - $b"
     }
+
+    // groupBy - 분류 작업
+    // - List<User>   ->   groupBy  -> Map<String, List<User>>
+    val result2 = list2.groupBy { user ->
+        if (user.age in 10..19) {
+            "10대"
+        } else if (user.age in 20..29) {
+            "20대"
+        } else if (user.age in 30..39) {
+            "30대"
+        } else if (user.age in 40..49) {
+            "40대"
+        } else {
+            "50대"
+        }
+    }
+
+    println(result2)
 
     println(result)
 }
