@@ -25,7 +25,6 @@ import io.yoondev.firstapp.databinding.ActivityMainBinding
 }
 */
 
-
 class MainActivity2 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
 
@@ -42,7 +41,7 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-            
+
         }
 
     }
