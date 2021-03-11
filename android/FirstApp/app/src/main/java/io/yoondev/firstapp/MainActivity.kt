@@ -17,6 +17,7 @@ import io.yoondev.firstapp.databinding.ActivityMainBinding
 import io.yoondev.firstapp.databinding.FragmentMainBinding
 import io.yoondev.firstapp.databinding.ItemListBinding
 import io.yoondev.firstapp.databinding.ListFragmentBinding
+import kotlin.properties.Delegates
 
 
 // import kotlinx.android.synthetic.main.activity_main.*
@@ -181,12 +182,28 @@ class ListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         adapter.items = items
+
+        binding.reloadButton.setOnClickListener {
+            adapter.items = listOf(
+                "A",
+                "B",
+                "C",
+            )
+
+
+            // adapter.notifyDataSetChanged()
+        }
+
     }
 }
 
 
 private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
-    var items = emptyList<String>()
+    // var items = emptyList<String>()
+
+    var items: List<String> by Delegates.observable(emptyList()) { _, _, _ ->
+        notifyDataSetChanged()
+    }
 
     class Holder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
