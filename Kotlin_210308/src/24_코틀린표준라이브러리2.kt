@@ -95,6 +95,7 @@ fun main() {
     // groupBy - 분류 작업
     // - List<User>   ->   groupBy  -> Map<String, List<User>>
     val result2 = list2.groupBy { user ->
+        /*
         if (user.age in 10..19) {
             "10대"
         } else if (user.age in 20..29) {
@@ -105,6 +106,24 @@ fun main() {
             "40대"
         } else {
             "50대"
+        }
+        */
+
+        /*
+        when {
+            user.age in 10..19 -> "10대"
+            user.age in 20..29 -> "20대"
+            user.age in 30..39 -> "30대"
+            user.age in 40..49 -> "40대"
+            else -> "50대"
+        }
+        */
+        when (user.age) {
+            in 10..19 -> "10대"
+            in 20..29 -> "20대"
+            in 30..39 -> "30대"
+            in 40..49 -> "40대"
+            else -> "50대"
         }
     }
 
