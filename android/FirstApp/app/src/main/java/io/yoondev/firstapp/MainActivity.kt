@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commitNow
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 import io.yoondev.firstapp.databinding.FragmentMainBinding
+import io.yoondev.firstapp.databinding.ListFragmentBinding
 
 
 // import kotlinx.android.synthetic.main.activity_main.*
@@ -84,7 +85,8 @@ class MainActivity : AppCompatActivity() {
         */
 
         supportFragmentManager.commitNow {
-            replace(R.id.mainFrame, MainFragment())
+            // replace(R.id.mainFrame, MainFragment())
+            replace(R.id.mainFrame, ListFragment())
         }
 
     }
@@ -144,6 +146,29 @@ class MainFragment : Fragment() {
     }
 
 }
+
+
+class ListFragment : Fragment() {
+
+    private var _binding: ListFragmentBinding? = null
+
+    private val binding: ListFragmentBinding
+        get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = ListFragmentBinding.inflate(inflater, container, false)
+        return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+}
+
 
 
 
