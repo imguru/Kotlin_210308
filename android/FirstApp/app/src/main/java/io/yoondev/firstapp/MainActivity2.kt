@@ -34,6 +34,17 @@ class MainActivity2 : AppCompatActivity() {
         binding = ActivityMain2Binding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        binding.button.setOnClickListener {
+
+
+
+
+
+            
+        }
+
     }
 }
 
