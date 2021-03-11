@@ -190,7 +190,6 @@ class ListFragment : Fragment() {
                 "C",
             )
 
-
             // adapter.notifyDataSetChanged()
         }
 
@@ -200,7 +199,6 @@ class ListFragment : Fragment() {
 
 private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
     // var items = emptyList<String>()
-
     var items: List<String> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
