@@ -3,6 +3,8 @@ package com.lge.ex23;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 
 class MyResources implements AutoCloseable {
@@ -21,6 +23,14 @@ class MyResources implements AutoCloseable {
 //  => Try with Resources
 public class Sample {
     public static void main(String[] args) {
+        List<Integer> arr = Arrays.asList(10, 20, 30, 40, 50);
+        arr.forEach(e -> {
+            System.out.println(e);
+        });
+
+        // Java's Method Reference
+        arr.forEach(System.out::println);
+        
         try (MyResources resources = new MyResources()) {
             resources.go();
         } catch (Exception e) {
