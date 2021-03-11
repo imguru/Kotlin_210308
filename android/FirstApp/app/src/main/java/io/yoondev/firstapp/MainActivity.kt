@@ -4,8 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.fragment.app.Fragment
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 
 
@@ -19,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     // - X
     // android:id="@+id/btnHello"
     // andorid:id="@+id/button_hello"
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -70,8 +72,46 @@ class MainActivity : AppCompatActivity() {
         pref.edit(commit = true) {
             putString("name", "Tom")
         }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.mainFrame, MainFragment())
+            .commitNow()
     }
 }
+
+
+// MainFragment
+class MainFragment : Fragment() {
+    /*
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+    */
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
