@@ -86,9 +86,11 @@ fun main() {
 
     // List<T> -> map -> List<U>
 
+    /*
     val result: List<String> = list.map { user ->
         user.name  // String
     }
+    */
 
     /*
     val result2 = list.map { user ->
@@ -109,6 +111,7 @@ fun main() {
     }.filterNotNull()
     */
 
+    /*
     val result2 = list.mapNotNull { user ->
         if (user.age > 43)
             Sample(user.name)
@@ -117,7 +120,19 @@ fun main() {
     }
 
     println(result2)
+    */
 
+    val result: List<List<String>> = list.map { user ->
+        listOf(user.name, "${user.age}")
+    }
+    println(result)
+
+    // flatMap: 변환의 결과가 중첩될 경우, 1차원으로 변환해준다.
+    val result2: List<String> = list.flatMap { user ->
+        listOf(user.name, "${user.age}")
+    }
+    println(result2)
+    
 
     // forEach - 순회 / forEachIndexed
     /*
