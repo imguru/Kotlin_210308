@@ -200,7 +200,6 @@ private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         with(holder.binding) {
-
             textView.text = items[position]
             button.setOnClickListener {
                 val context = holder.itemView.context
