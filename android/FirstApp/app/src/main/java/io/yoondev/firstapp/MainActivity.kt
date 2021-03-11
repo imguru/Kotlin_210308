@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commitNow
 import io.yoondev.firstapp.databinding.ActivityMainBinding
+import io.yoondev.firstapp.databinding.FragmentMainBinding
 
 
 // import kotlinx.android.synthetic.main.activity_main.*
@@ -103,11 +105,45 @@ class MainFragment : Fragment() {
     }
     */
 
+    /*
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_main, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val helloButton = view.findViewById<Button>(R.id.helloButton)
+        helloButton.setOnClickListener {
+            Toast.makeText(activity, "hello", Toast.LENGTH_SHORT).show()
+        }
+    }
+    */
+
+    // View binding - fragment_main.xml
+    private var _binding: FragmentMainBinding? = null
+
+    private val binding: FragmentMainBinding
+        get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.helloButton.setOnClickListener {
+            Toast.makeText(activity, "hello", Toast.LENGTH_SHORT).show()
+        }
+    }
 
 }
 
