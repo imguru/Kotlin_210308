@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commitNow
+import androidx.recyclerview.widget.RecyclerView
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 import io.yoondev.firstapp.databinding.FragmentMainBinding
 import io.yoondev.firstapp.databinding.ListFragmentBinding
@@ -149,11 +152,17 @@ class MainFragment : Fragment() {
 
 
 class ListFragment : Fragment() {
-
     private var _binding: ListFragmentBinding? = null
 
     private val binding: ListFragmentBinding
         get() = _binding!!
+
+
+    var items = listOf(
+        "Tom",
+        "Bob",
+        "Alice",
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -167,10 +176,50 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
+
 }
 
 
+private class ListAdpater : RecyclerView.Adapter<ListAdpater.Holder>() {
 
+    var items = emptyList<String>()
+
+    class Holder(parent: ViewGroup) : RecyclerView.ViewHolder(
+        LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_list, parent, false)
+    )
+
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        /*
+        val textView = holder.itemView.findViewById<TextView>(R.id.textView)
+        val button = holder.itemView.findViewById<Button>(R.id.button)
+
+        textView.text = items[position]
+        button.setOnClickListener {
+            Toast.makeText(holder.itemView.context, items[position], Toast.LENGTH_SHORT).show()
+        }
+        */
+
+        // with
+        with(holder.itemView) {
+            val textView = findViewById<TextView>(R.id.textView)
+            val button = findViewById<Button>(R.id.button)
+
+            textView.text = items[position]
+            button.setOnClickListener {
+                Toast.makeText(context, items[position], Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    override fun getItemCount(): Int = items.count()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(parent)
+}
 
 
 
