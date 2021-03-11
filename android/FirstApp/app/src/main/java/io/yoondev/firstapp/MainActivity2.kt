@@ -2,6 +2,7 @@ package io.yoondev.firstapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 
 // Network API
@@ -26,11 +27,11 @@ import io.yoondev.firstapp.databinding.ActivityMainBinding
 
 
 class MainActivity2 : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMain2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMain2Binding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
     }
