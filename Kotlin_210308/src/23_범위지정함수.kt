@@ -2,11 +2,11 @@
 package ex23
 
 import java.lang.StringBuilder
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 // 1. let
-// 2. with / apply / use
+// 2. with / apply / also / run
+// 3. use
+//   - Try with resources
 
 fun alphabet(): String {
     val result = StringBuilder()
@@ -66,6 +66,7 @@ inline fun buildString(builderAction: StringBuilder.() -> Unit): String {
 }
 
 // apply - buildString
+//  => Builder 를 생성하는 로직에 사용하는 경우가 많습니다.
 fun alaphabet_buildString(): String = buildString {
     for (letter in 'A'..'Z') {
         append(letter)
@@ -73,9 +74,49 @@ fun alaphabet_buildString(): String = buildString {
     append("\n")
 }
 
+class Address(val name: String, val code: Int)
+class User(val name: String, val address: Address)
+
+// apply
+inline fun <T> T.apply2(block: T.() -> Unit): T {
+    block()  // this.block()
+    return this
+}
+
+// also
+inline fun <T> T.also2(block: (T) -> Unit): T {
+    block(this)
+    return this
+}
+
+// run
+inline fun <R> run(block: () -> R): R {
+    return block()
+}
+
+inline fun <T, R> T.run1(block: T.() -> R): R {
+    return block()
+}
+
+class Resource : AutoCloseable {
+    override fun close() {
+        println("Resource close")
+    }
+}
 
 fun main() {
+    val user = User("Tom", Address("Suwon", 16512))
+    val name = user.run {
+        user.name
+    }
 
+    println(user.address.name)
+    println(user.address.code)
+
+    with(user.address) {
+        println(name)
+        println(code)
+    }
 }
 
 
