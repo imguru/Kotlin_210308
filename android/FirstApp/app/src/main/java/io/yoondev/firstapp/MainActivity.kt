@@ -175,12 +175,16 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
+        val adapter = ListAdapter()
+        binding.recyclerView.adapter = adapter
+
+        adapter.items = items
+    }
 }
 
 
-private class ListAdpater : RecyclerView.Adapter<ListAdpater.Holder>() {
+private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
 
     var items = emptyList<String>()
 
@@ -213,7 +217,6 @@ private class ListAdpater : RecyclerView.Adapter<ListAdpater.Holder>() {
                 Toast.makeText(context, items[position], Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun getItemCount(): Int = items.count()
