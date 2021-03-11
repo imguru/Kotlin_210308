@@ -105,11 +105,17 @@ class Resource : AutoCloseable {
 }
 
 fun main() {
+
     val user = User("Tom", Address("Suwon", 16512))
     val name = user.run {
         user.name
     }
 
+    val longNameUser = user.takeIf {
+        it.name.length > 5
+    }
+
+    println(longNameUser)
     println(user.address.name)
     println(user.address.code)
 
