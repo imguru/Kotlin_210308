@@ -69,6 +69,8 @@ class Person {
     }
 }
 
+data class Sample(val name: String)
+
 fun main() {
     val list = listOf(
         User("Tom1", 41),
@@ -79,7 +81,50 @@ fun main() {
         User("Tom6", 46),
     )
 
-    // forEach - 순회
+    // map(transform) - 변환
+    // filter
+
+    // List<T> -> map -> List<U>
+
+    val result: List<String> = list.map { user ->
+        user.name  // String
+    }
+
+    /*
+    val result2 = list.map { user ->
+        if (user.age > 43)
+            Sample(user.name)
+        else
+            null
+    }.filter {
+        it != null
+    }
+    */
+    /*
+    val result2 = list.map { user ->
+        if (user.age > 43)
+            Sample(user.name)
+        else
+            null
+    }.filterNotNull()
+    */
+
+    val result2 = list.mapNotNull { user ->
+        if (user.age > 43)
+            Sample(user.name)
+        else
+            null
+    }
+
+    println(result2)
+
+
+    // forEach - 순회 / forEachIndexed
+    /*
+    list.forEachIndexed { index, user ->
+        println("${index}는 ${user}입니다")
+    }
+
     list.forEach {
         println(it)
     }
@@ -95,6 +140,7 @@ fun main() {
     }
 
     list.forEach(person::print)
+    */
 }
 
 
