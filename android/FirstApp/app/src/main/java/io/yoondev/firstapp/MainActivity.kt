@@ -15,6 +15,7 @@ import androidx.fragment.app.commitNow
 import androidx.recyclerview.widget.RecyclerView
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 import io.yoondev.firstapp.databinding.FragmentMainBinding
+import io.yoondev.firstapp.databinding.ItemListBinding
 import io.yoondev.firstapp.databinding.ListFragmentBinding
 
 
@@ -185,7 +186,52 @@ class ListFragment : Fragment() {
 
 
 private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
+    var items = emptyList<String>()
 
+    class Holder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        // item_list.xml
+        val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return Holder(binding)
+    }
+
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        with(holder.binding) {
+
+            textView.text = items[position]
+            button.setOnClickListener {
+                val context = holder.itemView.context
+                Toast.makeText(context, items[position], Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        // with
+        /*
+        with(holder.itemView) {
+            val textView = findViewById<TextView>(R.id.textView)
+            val button = findViewById<Button>(R.id.button)
+
+            textView.text = items[position]
+            button.setOnClickListener {
+                Toast.makeText(context, items[position], Toast.LENGTH_SHORT).show()
+            }
+        }
+        */
+    }
+
+    override fun getItemCount(): Int = items.count()
+
+
+}
+
+
+// findViewById
+/*
+private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
     var items = emptyList<String>()
 
     class Holder(parent: ViewGroup) : RecyclerView.ViewHolder(
@@ -223,7 +269,7 @@ private class ListAdapter : RecyclerView.Adapter<ListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder = Holder(parent)
 }
-
+*/
 
 
 
