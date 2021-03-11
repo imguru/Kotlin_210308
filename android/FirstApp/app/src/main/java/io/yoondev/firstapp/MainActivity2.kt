@@ -12,6 +12,9 @@ import okhttp3.Request
 //  - Java / Kotlin: OKHttp
 
 
+// JSON Serialization / Deserialization
+//  - Gson
+
 // Github API
 //    https://api.github.com/users/JakeWharton
 //    https://api.github.com/search/users?q=google
@@ -27,6 +30,17 @@ import okhttp3.Request
   "email": null,
 }
 */
+// .dto.User // proguard 예외가 되어야 한다.
+data class User(
+    val login: String,
+    val id: Int,
+    val avatar_url: String,
+    val type: String,
+    val name: String,
+    val company: String,
+    val email: String,
+)
+
 
 class MainActivity2 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
