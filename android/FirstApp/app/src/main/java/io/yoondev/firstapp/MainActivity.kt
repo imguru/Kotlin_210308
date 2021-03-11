@@ -1,8 +1,11 @@
 package io.yoondev.firstapp
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.edit
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 
 
@@ -51,5 +54,32 @@ class MainActivity : AppCompatActivity() {
         binding.helloButton.setOnClickListener {
             Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
         }
+
+        val pref = getSharedPreferences("firstapp", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putString("name", "Tom")
+        editor.apply()
+
+        // core-ktx : Android Kotlin Extension - KTX
+        // - apply
+        pref.edit {
+            putString("name", "Tom")
+        }
+
+        // - commit
+        pref.edit(commit = true) {
+            putString("name", "Tom")
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
