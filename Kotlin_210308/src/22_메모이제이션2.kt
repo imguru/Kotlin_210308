@@ -26,11 +26,17 @@ fun User.toJson(): String {
 fun <T> T.toJson(): String {
     println("T.toJson()")
 
+    /*
     val gson = GsonBuilder()
-        // .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
         .setPrettyPrinting()
         .create()
+     */
+
+    val gson = GsonBuilder().apply {
+        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
+        setPrettyPrinting()
+    }.create()
 
     return gson.toJson(this)
 }
@@ -73,6 +79,6 @@ fun main() {
 //    println(toJson(Car("BMW", 100, 200)))
 //    println(toJson(Car("BMW", 100, 200)))
 
-     // println(user1.toJson())
-     // println(user2.toJson())
+    // println(user1.toJson())
+    // println(user2.toJson())
 }

@@ -52,13 +52,27 @@ inline fun <T> T.apply1(block: T.() -> Unit): T {
     return this
 }
 
-// apply
+// apply - Builder 초기화
 fun alphabet_apply(): String = StringBuilder().apply {
     for (letter in 'A'..'Z') {
         append(letter)
     }
     append("\n")
 }.toString()
+
+
+inline fun buildString(builderAction: StringBuilder.() -> Unit): String {
+    return StringBuilder().apply(builderAction).toString()
+}
+
+// apply - buildString
+fun alaphabet_buildString(): String = buildString {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\n")
+}
+
 
 fun main() {
 
