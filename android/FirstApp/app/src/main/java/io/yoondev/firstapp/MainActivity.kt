@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commitNow
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 
 
@@ -75,10 +76,17 @@ class MainActivity : AppCompatActivity() {
 
         // fragment-ktx
         // - implementation 'androidx.fragment:fragment-ktx:1.3.1'
+        /*
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.mainFrame, MainFragment())
             .commitNow()
+        */
+
+        supportFragmentManager.commitNow {
+            replace(R.id.mainFrame, MainFragment())
+        }
+
     }
 }
 
