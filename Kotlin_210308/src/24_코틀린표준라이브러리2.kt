@@ -72,6 +72,27 @@ class Person {
 data class Sample(val name: String)
 
 fun main() {
+    val list1 = listOf(1, 2, 3, 4, 5)
+    val list2 = listOf(
+        User("Tom", 42),
+        User("Tom", 42),
+        User("Tom", 42),
+        User("Tom", 42),
+        User("Tom", 42),
+    )
+
+    // zip
+    //  두 개의 컬렉션을 통해 새로운 컬렉션을 생성한다.
+    val result = list1.zip(list2) { a: Int, b: User ->
+        "$a - $b"
+    }
+
+    println(result)
+}
+
+
+/*
+fun main() {
     val list = listOf(
         User("Tom1", 41),
         User("Tom2", 42),
@@ -122,6 +143,8 @@ fun main() {
     println(result2)
     */
 
+    // List<User> ->   map   ->  List<List<String>>
+    // List<User> -> flatMap ->  List<String>
     val result: List<List<String>> = list.map { user ->
         listOf(user.name, "${user.age}")
     }
@@ -132,7 +155,7 @@ fun main() {
         listOf(user.name, "${user.age}")
     }
     println(result2)
-    
+
 
     // forEach - 순회 / forEachIndexed
     /*
@@ -157,7 +180,7 @@ fun main() {
     list.forEach(person::print)
     */
 }
-
+*/
 
 
 
