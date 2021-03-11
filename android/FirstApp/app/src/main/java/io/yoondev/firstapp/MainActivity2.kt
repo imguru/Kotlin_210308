@@ -3,6 +3,7 @@ package io.yoondev.firstapp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.GsonBuilder
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
@@ -31,6 +32,9 @@ import okhttp3.Request
 }
 */
 // .dto.User // proguard 예외가 되어야 한다.
+
+// DTO / DAO / VO => kotlin data class
+//                   equals / hashCode / toString / copy
 data class User(
     val login: String,
     val id: Int,
@@ -40,7 +44,6 @@ data class User(
     val company: String,
     val email: String,
 )
-
 
 class MainActivity2 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
@@ -104,7 +107,17 @@ class MainActivity2 : AppCompatActivity() {
                         //  => 메인(UI) 스레드가 아닌 다른 스레드에서 UI 변경이 불가능합니다.
 
                         runOnUiThread {
-                            Toast.makeText(this, body.string(), Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(this, body.string(), Toast.LENGTH_SHORT).show()
+
+                            val gson = GsonBuilder().apply {
+
+                            }.create()
+
+                            val json = body.string()
+                            val user = gson.fromJson(json, User::class.java)
+
+
+                            Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
                         }
 
 
