@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity() {
             putString("name", "Tom")
         }
 
+        // fragment-ktx
+        // - implementation 'androidx.fragment:fragment-ktx:1.3.1'
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.mainFrame, MainFragment())
