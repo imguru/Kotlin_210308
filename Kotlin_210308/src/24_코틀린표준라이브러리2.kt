@@ -5,7 +5,7 @@ package ex24
 //  * Kotlin - Sequence API
 //  * Java   - Stream API(Java 8) - Android minimum SDK 26
 
-
+/*
 fun main() {
     // val list = listOf(1, 2, 3, 4, 5, 6)
     // val list = emptyList<Int>()
@@ -46,6 +46,55 @@ fun main() {
         e + 10 + i++
     }
     println(result5)
+}
+*/
+
+data class User(val name: String, val age: Int) {
+
+    // fun print(User)
+    fun print() {
+        println("name = $name")
+    }
+}
+
+class Person {
+    // Person::print
+    // fun print(Person, User)
+
+    // val person = Person()
+    // person::print          - bound reference
+    // fun print(User)
+    fun print(user: User) {
+        println("name = ${user.name}")
+    }
+}
+
+fun main() {
+    val list = listOf(
+        User("Tom1", 41),
+        User("Tom2", 42),
+        User("Tom3", 43),
+        User("Tom4", 44),
+        User("Tom5", 45),
+        User("Tom6", 46),
+    )
+
+    // forEach - 순회
+    list.forEach {
+        println(it)
+    }
+
+    // Java 8 - Method Reference
+    list.forEach(::println)
+
+    list.forEach(User::print)
+
+    val person = Person()
+    list.forEach {
+        person.print(it)
+    }
+
+    list.forEach(person::print)
 }
 
 
