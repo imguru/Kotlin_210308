@@ -13,6 +13,10 @@ class MainActivity4 : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.button.setOnClickListener {
+
+        }
+
     }
 
 }
