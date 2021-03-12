@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -21,6 +22,10 @@ import retrofit2.http.Path
 // Retrofit
 //  => OKHttpClient 를 이용할 때의 보일러플레이트를 제거할 수 있습니다.
 //    1) Request
+//    3) Response.body -> gson -> User
+//      => converter factory
+//      =>
+
 //    2) runOnUiThread
 
 // Github API
@@ -31,7 +36,7 @@ import retrofit2.http.Path
 interface GithubApi {
 
     @GET("users/{login}")
-    fun getUser(@Path("login") login: String): Call<String>
+    fun getUser(@Path("login") login: String): Call<User>
 
     // ...
 }
@@ -45,6 +50,17 @@ private val httpClient: OkHttpClient = OkHttpClient.Builder().apply {
 private val retrofit: Retrofit = Retrofit.Builder().apply {
     baseUrl("https://api.github.com/")
     client(httpClient)
+
+
+    // Converter Factory
+    //----
+    val gson = GsonBuilder().apply {
+        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+    }.create()
+
+    addConverterFactory(GsonConverterFactory.create(gson))
+    //----
+
 }.build()
 
 // 4. Retrofit 객체가 GithubApi 인터페이스의 어노테이션을 분석해서,
@@ -64,19 +80,13 @@ class MainActivity3 : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             val call = githubApi.getUser("JakeWharton")
-            call.enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if (response.isSuccessful) {
+            call.enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (!response.isSuccessful) {
                         return
                     }
 
-                    val gson = GsonBuilder().apply {
-                        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                    }.create()
-
-                    val json = response.body() ?: return
-                    val user = gson.fromJson<User>(json)
-
+                    val user = response.body() ?: return
                     with(binding) {
                         avatarImageView.load(user.avatarUrl) {
                             crossfade(3000)
@@ -92,7 +102,7 @@ class MainActivity3 : AppCompatActivity() {
 
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                     Toast.makeText(
                         this@MainActivity3,
                         "Failed - ${t.localizedMessage}",
