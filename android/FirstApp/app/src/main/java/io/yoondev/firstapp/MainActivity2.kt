@@ -157,6 +157,7 @@ class MainActivity2 : AppCompatActivity() {
 
                             // Kotlin Image Library - coil
                             //  => Extension Function
+                            /*
                             binding.avatarImageView.load(user.avatarUrl) {
                                 // crossfade(true)
                                 crossfade(3000)
@@ -165,6 +166,19 @@ class MainActivity2 : AppCompatActivity() {
 
                             binding.nameTextView.text = user.name
                             binding.loginTextView.text = user.login
+                            */
+                            with(binding) {
+                                avatarImageView.load(user.avatarUrl) {
+                                    crossfade(3000)
+                                    transformations(
+                                        CircleCropTransformation(),
+                                        GrayscaleTransformation(),
+                                    )
+                                }
+
+                                nameTextView.text = user.name
+                                loginTextView.text = user.login
+                            }
                         }
                     }
                 }
