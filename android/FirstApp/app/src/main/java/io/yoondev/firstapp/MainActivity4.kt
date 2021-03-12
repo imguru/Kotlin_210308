@@ -8,6 +8,7 @@ import coil.transform.CircleCropTransformation
 import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -94,6 +95,12 @@ class SList : Iterable<Int> {
 //      반드시 해지해 주어야 합니다.
 //   => dispose()
 
+// RxBinding
+//   => UI 비동기 이벤트를 Observable을 통해 다룰 수 있습니다.
+//    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+//    implementation 'com.jakewharton.rxbinding4:rxbinding-material:4.0.0'
+
+
 data class User2(val name: String)
 
 class MainActivity4 : AppCompatActivity() {
@@ -106,6 +113,33 @@ class MainActivity4 : AppCompatActivity() {
         setContentView(view)
 
 
+
+        binding.button.clicks()
+            // Observable<Unit> -> flatMap -> Observable<SearchUserResponse>
+            .flatMap {
+                githubApiRx.searchUser("jake")
+            }
+            .map { response: SearchUserResponse ->
+                val items = response.items
+                val login = items.firstOrNull()?.login
+                login
+            }
+            .filter { login: String? ->
+                login != null
+            }
+            .flatMap { name: String? ->
+                githubApiRx.getUser(name!!)  // Observable<User>
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = { user: User ->
+                updateUserUI(user)
+            }, onError = { e ->
+                // 생략할 경우 예외가 발생하면, 비정상 종료된다.
+                Log.e("XXX", "error - ${e.localizedMessage}")
+            })
+
+
+        /*
         binding.button.setOnClickListener {
             // 1. Search User - 비동기
             // 2. first user
@@ -114,8 +148,6 @@ class MainActivity4 : AppCompatActivity() {
 
             // List<String> ->  map         -> List<List<Int>>
             // List<String> ->  flatMap     -> List<Int>
-
-
             githubApiRx.searchUser("jake")
                 .map { response: SearchUserResponse ->
                     val items = response.items
@@ -179,6 +211,8 @@ class MainActivity4 : AppCompatActivity() {
             */
 
         }
+
+        */
 
 
         /*
