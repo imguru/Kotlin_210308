@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -144,6 +145,9 @@ class MainActivity2 : AppCompatActivity() {
                             // Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
                             // val email = user.email ?: "Null 값"
                             // Log.e(TAG, "$user $email")
+                            Glide.with(this)
+                                .load(user.avatarUrl)
+                                .into(binding.avatarImageView)
 
                             binding.nameTextView.text = user.name
                             binding.loginTextView.text = user.login
