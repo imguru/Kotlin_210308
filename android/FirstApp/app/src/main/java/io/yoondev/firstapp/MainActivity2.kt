@@ -14,8 +14,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import io.yoondev.firstapp.databinding.ActivityMainBinding
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import java.io.IOException
 
 // Network API
 //  - Java / Kotlin: OKHttp
@@ -205,8 +205,51 @@ class MainActivity2 : AppCompatActivity() {
                 url("https://api.github.com/users/JakeWharton")
                 get()
             }.build()
-            
+
             val call = client.newCall(request)
+
+            // 비동기
+            call.enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Toast.makeText(
+                        this@MainActivity2,
+                        "Network error - ${e.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    if (!response.isSuccessful) {
+                        Toast.makeText(
+                            this@MainActivity2,
+                            "error - ${response.code}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return
+                    }
+
+                    val gson = GsonBuilder().apply {
+                        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    }.create()
+
+                    val json = response.body?.string() ?: return
+                    val user = gson.fromJson<User>(json)
+
+                    // UI Update
+                    with(binding) {
+                        avatarImageView.load(user.avatarUrl) {
+                            crossfade(3000)
+                            transformations(
+                                CircleCropTransformation(),
+                                GrayscaleTransformation(),
+                            )
+                        }
+
+                        nameTextView.text = user.name
+                        loginTextView.text = user.login
+                    }
+                }
+            })
         }
     }
 }
