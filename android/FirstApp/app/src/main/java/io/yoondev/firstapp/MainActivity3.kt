@@ -24,7 +24,6 @@ import retrofit2.http.Path
 //    1) Request
 //    3) Response.body -> gson -> User
 //      => converter factory
-//      =>
 
 //    2) runOnUiThread
 
@@ -87,6 +86,7 @@ class MainActivity3 : AppCompatActivity() {
                     }
 
                     val user = response.body() ?: return
+
                     with(binding) {
                         avatarImageView.load(user.avatarUrl) {
                             crossfade(3000)
@@ -99,7 +99,6 @@ class MainActivity3 : AppCompatActivity() {
                         nameTextView.text = user.name
                         loginTextView.text = user.login
                     }
-
                 }
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
