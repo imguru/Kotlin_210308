@@ -31,7 +31,7 @@ class SListIterator(private var current: SList.Node?) : Iterator<Int> {
 }
 
 
-class SList {
+class SList : Iterable<Int> {
     class Node(val value: Int, val next: Node?)
 
     var head: Node? = null
@@ -42,6 +42,8 @@ class SList {
     fun addFront(value: Int) {
         head = Node(value, head)
     }
+
+    override fun iterator(): Iterator<Int> = SListIterator(head)
 }
 
 
