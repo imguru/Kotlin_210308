@@ -141,12 +141,12 @@ class MainActivity2 : AppCompatActivity() {
                             // val user = gson.fromJson(json, User::class.java)
                             val user = gson.fromJson<User>(json)
 
-                            Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
+                            // val email = user.email ?: "Null 값"
+                            // Log.e(TAG, "$user $email")
 
-                            val email = user.email ?: "Null 값"
-                            Log.e(TAG, "$user $email")
-
-                            // user.email = "null"
+                            binding.nameTextView.text = user.name
+                            binding.loginTextView.text = user.login
                         }
                     }
                 }
