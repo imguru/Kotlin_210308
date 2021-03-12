@@ -3,12 +3,20 @@ package io.yoondev.firstapp
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -101,10 +109,54 @@ class MainActivity4 : AppCompatActivity() {
 
         binding.button.setOnClickListener {
 
+            /*
+            githubApiRx.getUser("JakeWharton")
+                .subscribe({
+                    // onNext
+                }, {
+                    // onError
+                }, {
+                    // onComplete
+                })
+            */
+            // RxKotlin - RxJava를 Kotlin에서 사용하기 편하도록 만들어진 라이브러리
+            githubApiRx.getUser("JakeWharton")
+                .observeOn(AndroidSchedulers.mainThread())  // RxAndroid
+                .subscribeBy(
+                    // ----Observer----
+                    onNext = { user ->
+                        Log.e("XXX", "onNext: $user")
+
+                        updateUserUI(user)
+                    },
+                    onError = { error ->
+                        Log.e("XXX", "onError: ${error.localizedMessage}")
+                    },
+                    onComplete = {
+                        Log.e("XXX", "onComplete")
+                    }
+                    // ----Observer----
+                )
 
         }
 
     }
+
+    private fun updateUserUI(user: User) {
+        with(binding) {
+            avatarImageView.load(user.avatarUrl) {
+                crossfade(3000)
+                transformations(
+                    CircleCropTransformation(),
+                    GrayscaleTransformation(),
+                )
+            }
+
+            nameTextView.text = user.name
+            loginTextView.text = user.login
+        }
+    }
+
 
 }
 
@@ -159,14 +211,14 @@ class MainActivity4 : AppCompatActivity() {
 
 interface GithubApiRx {
     @GET("users/{login}")
-    fun getUser(@Path("login") login: String): Call<User>
+    fun getUser(@Path("login") login: String): Observable<User>
 
     @GET("search/users")
     fun searchUser(
         @Query("q") query: String,
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 10
-    ): Call<SearchUserResponse>
+    ): Observable<SearchUserResponse>
 }
 
 private val retrofit: Retrofit = Retrofit.Builder().apply {
@@ -178,7 +230,7 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
     }.create()
 
     addConverterFactory(GsonConverterFactory.create(gson))
-
+    addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Call<E> -> Observable<E>
 
 }.build()
 
