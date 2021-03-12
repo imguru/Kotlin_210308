@@ -2,6 +2,7 @@ package io.yoondev.firstapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -89,6 +90,7 @@ class MainActivity3 : AppCompatActivity() {
 
         binding.button.setOnClickListener {
 
+            /*
             githubApi.searchUser("Jake")
                 .enqueue(object : Callback<SearchUserResponse> {
                     override fun onResponse(
@@ -103,6 +105,19 @@ class MainActivity3 : AppCompatActivity() {
 
                     }
                 })
+             */
+
+            githubApi.searchUser("Jake")
+                .enqueue(
+                    onResponse = { response ->
+                        val body = response.body() ?: return@enqueue
+                        Log.e("XXX", "$body")
+                    },
+                    onFailure = { t ->
+                        Toast.makeText(this, "error - ${t.localizedMessage}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                )
 
 
             /*
