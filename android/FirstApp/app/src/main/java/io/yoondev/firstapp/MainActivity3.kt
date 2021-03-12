@@ -92,7 +92,11 @@ val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
 //     3. Handler -> UI Update 수행
 //     => AsyncTask
 
+//    Rx => 비동기 흐름을 효과적으로 제어하는 방법
+//     : Rx(Reactive eXtension)
 
+//    RxJava
+//    - RxSwift / RxJs ...
 class MainActivity3 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
 
@@ -110,6 +114,28 @@ class MainActivity3 : AppCompatActivity() {
 
             githubApi.searchUser("Jake")
                 .enqueue(onResponse = { response ->
+
+                    /*
+                    response.body()?.let {
+                        val items = it.items
+                        items.firstOrNull()?.login?.let { login ->
+                            githubApi.getUser(login)
+                                .enqueue(
+                                    onResponse = enqueue2@{ userResponse ->
+                                        val user = userResponse.body() ?: return@enqueue2
+                                        updateUserUI(user)
+                                    },
+                                    onFailure = { e ->
+                                        Toast.makeText(
+                                            this,
+                                            e.localizedMessage,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                )
+                        }
+                    }
+                    */
 
                     val items = response.body()?.items ?: emptyList()
                     val login = items.firstOrNull()?.login ?: return@enqueue
