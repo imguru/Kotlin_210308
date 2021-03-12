@@ -153,6 +153,10 @@ class MainActivity4 : AppCompatActivity() {
 }
 */
 
+// Rx 적용하기
+// : Call<E> -> Observable<E>
+// => Retrofit 에서는 Call Adapter를 추가해야 합니다.
+
 interface GithubApiRx {
     @GET("users/{login}")
     fun getUser(@Path("login") login: String): Call<User>
