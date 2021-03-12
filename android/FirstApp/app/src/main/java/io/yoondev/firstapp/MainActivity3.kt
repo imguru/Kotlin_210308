@@ -141,3 +141,24 @@ class MainActivity3 : AppCompatActivity() {
         }
     }
 }
+
+//-------
+inline fun <E> Call<E>.enqueue(
+    crossinline onResponse: (response: Response<E>) -> Unit,
+    crossinline onFailure: (t: Throwable) -> Unit
+) {
+    enqueue(object : Callback<E> {
+        override fun onResponse(call: Call<E>, response: Response<E>) = onResponse(response)
+        override fun onFailure(call: Call<E>, t: Throwable) = onFailure(t)
+    })
+}
+
+
+
+
+
+
+
+
+
+
