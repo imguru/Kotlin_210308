@@ -1,19 +1,15 @@
 package io.yoondev.firstapp
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.GrayscaleTransformation
-import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.annotations.SerializedName
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
-import io.yoondev.firstapp.databinding.ActivityMainBinding
 import okhttp3.*
 import java.io.IOException
 

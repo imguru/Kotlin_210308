@@ -11,10 +11,7 @@ import com.google.gson.GsonBuilder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
-import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -107,6 +104,7 @@ class MainActivity4 : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
         binding.button.setOnClickListener {
 
             /*
@@ -119,15 +117,26 @@ class MainActivity4 : AppCompatActivity() {
                     // onComplete
                 })
             */
+            // Collection
+            //   List<User> -> map -> List<String>
+
+
             // RxKotlin - RxJava를 Kotlin에서 사용하기 편하도록 만들어진 라이브러리
             githubApiRx.getUser("JakeWharton")
+                // Observable<User> -> Observable<String>
+                .map { user ->
+                    user.name
+                }
+                .filter { name ->
+                    name.length < 5
+                }
                 .observeOn(AndroidSchedulers.mainThread())  // RxAndroid
                 .subscribeBy(
                     // ----Observer----
                     onNext = { user ->
                         Log.e("XXX", "onNext: $user")
 
-                        updateUserUI(user)
+                        // updateUserUI(user)
                     },
                     onError = { error ->
                         Log.e("XXX", "onError: ${error.localizedMessage}")
