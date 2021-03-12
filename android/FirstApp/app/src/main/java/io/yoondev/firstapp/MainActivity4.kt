@@ -115,6 +115,28 @@ class MainActivity4 : AppCompatActivity() {
             // List<String> ->  map         -> List<List<Int>>
             // List<String> ->  flatMap     -> List<Int>
 
+
+            githubApiRx.searchUser("jake")
+                .map { response: SearchUserResponse ->
+                    val items = response.items
+                    val login = items.firstOrNull()?.login
+                    login
+                }
+                .filter { login: String? ->
+                    login != null
+                }
+                .flatMap { name: String? ->
+                    githubApiRx.getUser(name!!)  // Observable<User>
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(onNext = { user: User ->
+                    updateUserUI(user)
+                }, onError = { e ->
+                    // 생략할 경우 예외가 발생하면, 비정상 종료된다.
+                    Log.e("XXX", "error - ${e.localizedMessage}")
+                })
+
+            /*
             githubApiRx.searchUser("jake")
                 // Observable<SearchUserResponse> -> Observable<List<User>>
                 .map { response: SearchUserResponse ->
@@ -153,6 +175,8 @@ class MainActivity4 : AppCompatActivity() {
                     Log.e("XXX", "error - ${e.localizedMessage}")
                 })
 
+
+            */
 
         }
 
