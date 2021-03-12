@@ -120,22 +120,20 @@ class MainActivity4 : AppCompatActivity() {
             // Collection
             //   List<User> -> map -> List<String>
 
-
             // RxKotlin - RxJava를 Kotlin에서 사용하기 편하도록 만들어진 라이브러리
             githubApiRx.getUser("JakeWharton")
-                // Observable<User> -> Observable<String>
+                // Observable<User> -> map -> Observable<String>
                 .map { user ->
                     user.name
                 }
                 .filter { name ->
-                    name.length < 5
+                    name.length <= 5
                 }
                 .observeOn(AndroidSchedulers.mainThread())  // RxAndroid
                 .subscribeBy(
                     // ----Observer----
                     onNext = { user ->
                         Log.e("XXX", "onNext: $user")
-
                         // updateUserUI(user)
                     },
                     onError = { error ->
