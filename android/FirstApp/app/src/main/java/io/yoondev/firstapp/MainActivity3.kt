@@ -1,11 +1,8 @@
 package io.yoondev.firstapp
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
-import coil.transform.CircleCropTransformation
-import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
@@ -91,6 +88,24 @@ class MainActivity3 : AppCompatActivity() {
         setContentView(view)
 
         binding.button.setOnClickListener {
+
+            githubApi.searchUser("Jake")
+                .enqueue(object : Callback<SearchUserResponse> {
+                    override fun onResponse(
+                        call: Call<SearchUserResponse>,
+                        response: Response<SearchUserResponse>
+                    ) {
+                        val body = response.body() ?: return
+                        Log.e("XXX", "$body")
+                    }
+
+                    override fun onFailure(call: Call<SearchUserResponse>, t: Throwable) {
+
+                    }
+                })
+
+
+            /*
             val call = githubApi.getUser("JakeWharton")
             call.enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -122,6 +137,7 @@ class MainActivity3 : AppCompatActivity() {
                     ).show()
                 }
             })
+            */
         }
     }
 }
