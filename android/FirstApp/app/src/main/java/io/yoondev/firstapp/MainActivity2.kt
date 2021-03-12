@@ -207,8 +207,52 @@ class MainActivity2 : AppCompatActivity() {
             }.build()
 
             val call = client.newCall(request)
+            call.enqueue(onFailure = { e ->
+                runOnUiThread {
+                    Toast.makeText(
+                        this,
+                        "Network error - ${e.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }, onResponse = { response ->
+                if (!response.isSuccessful) {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this,
+                            "error - ${response.code}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    return@enqueue
+                }
+
+                val gson = GsonBuilder().apply {
+                    setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                }.create()
+
+                val json = response.body?.string() ?: return@enqueue
+                val user = gson.fromJson<User>(json)
+
+                // UI Update
+                runOnUiThread {
+                    with(binding) {
+                        avatarImageView.load(user.avatarUrl) {
+                            crossfade(3000)
+                            transformations(
+                                CircleCropTransformation(),
+                                GrayscaleTransformation(),
+                            )
+                        }
+
+                        nameTextView.text = user.name
+                        loginTextView.text = user.login
+                    }
+                }
+            })
 
             // 비동기 => 다른 스레드에서 호출됩니다.
+            /*
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     runOnUiThread {
@@ -256,6 +300,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
             })
+            */
         }
     }
 }
