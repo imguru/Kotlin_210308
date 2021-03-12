@@ -107,6 +107,65 @@ class MainActivity4 : AppCompatActivity() {
 
 
         binding.button.setOnClickListener {
+            // 1. Search User - 비동기
+            // 2. first user
+            // 3. GetUser - 비동기
+
+
+            // List<String> ->  map         -> List<List<Int>>
+            // List<String> ->  flatMap     -> List<Int>
+
+            githubApiRx.searchUser("jake")
+                // Observable<SearchUserResponse> -> Observable<List<User>>
+                .map { response: SearchUserResponse ->
+                    Log.e("XXX", "map")
+                    response.items
+                }
+                .filter { items: List<User> ->
+                    Log.e("XXX", "filter")
+                    items.isNotEmpty()
+                }
+                // Observable<List<User>> -> Observable<String?>
+//                .map { items: List<User> ->
+//
+//                    val first = items.firstOrNull()
+//                    Log.e("XXX", "map - $first")
+//                    first!!.name
+//                }
+//                .filter { name: String? ->
+//                    Log.e("XXX", "filter")
+//                    name != null
+//                }
+//                // Observable<String?> -> Observable<String>
+//                .map { name: String? ->
+//                    Log.e("XXX", "map")
+//                    name!!
+//                }
+                // Observable<String> ->  map -> Observable<Observable<User>>
+                // .map { name: String ->
+                //    githubApiRx.getUser(name)  // Observable<User>
+                // }
+
+                // Observable<String> -> flatMap -> Observable<User>
+                .flatMap { items: List<User> ->
+
+                    Log.e("XXX", "flatMap")
+                    githubApiRx.getUser(items[0].login)  // Observable<User>
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(onNext = { user: User ->
+                    Log.e("XXX", "subscribeBy")
+                    updateUserUI(user)
+                }, onError = { e ->
+                    Log.e("XXX", "${e.localizedMessage}")
+                })
+
+
+        }
+
+
+        /*
+        binding.button.setOnClickListener {
 
             /*
             githubApiRx.getUser("JakeWharton")
@@ -136,7 +195,7 @@ class MainActivity4 : AppCompatActivity() {
                     user.name
                 }
                 .filter { name ->
-                    name.length <= 5
+                    name.length >= 5
                 }
                 .observeOn(AndroidSchedulers.mainThread())  // RxAndroid
                 .subscribeBy(
@@ -155,6 +214,7 @@ class MainActivity4 : AppCompatActivity() {
                 )
 
         }
+        */
 
     }
 
