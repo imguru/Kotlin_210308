@@ -11,6 +11,9 @@ import com.google.gson.GsonBuilder
 import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import retrofit2.Retrofit
@@ -106,6 +109,14 @@ data class User2(val name: String)
 class MainActivity4 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
 
+    private val compositeDisposable = CompositeDisposable()
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+
+        super.onDestroy()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
@@ -113,9 +124,35 @@ class MainActivity4 : AppCompatActivity() {
         setContentView(view)
 
 
-
-        binding.button.clicks()
+        /*
+        val disposable: Disposable = binding.button.clicks()
             // Observable<Unit> -> flatMap -> Observable<SearchUserResponse>
+            .flatMap {
+                githubApiRx.searchUser("jake")
+            }
+            .map { response: SearchUserResponse ->
+                val items = response.items
+                val login = items.firstOrNull()?.login
+                login
+            }
+            .filter { login: String? ->
+                login != null
+            }
+            .flatMap { name: String? ->
+                githubApiRx.getUser(name!!)  // Observable<User>
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = { user: User ->
+                updateUserUI(user)
+            }, onError = { e ->
+                // 생략할 경우 예외가 발생하면, 비정상 종료된다.
+                Log.e("XXX", "error - ${e.localizedMessage}")
+            })
+
+        compositeDisposable.add(disposable)
+        */
+
+        compositeDisposable += binding.button.clicks()
             .flatMap {
                 githubApiRx.searchUser("jake")
             }
