@@ -61,8 +61,16 @@ class MainActivity4 : AppCompatActivity() {
             list.addFront(10)
             list.addFront(20)
             list.addFront(30)
+            // val list = listOf(10, 20, 30)
 
-            Log.e("XXX", "${list.front}")
+            // Log.e("XXX", "${list.front}")
+
+            // 1. Iterator 이용하는 방법
+            val iterator = list.iterator()
+            while (iterator.hasNext()) {
+                Log.e("XXX", "${iterator.next()}")
+            }
+
         }
 
     }
