@@ -17,6 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 // Retrofit
@@ -29,6 +30,13 @@ import retrofit2.http.Path
 
 // Github API
 //    https://api.github.com/users/JakeWharton
+//    https://api.github.com/search/users?q=google&per_page=5
+
+data class SearchUserResponse(
+    val totalCount: Int,
+    val incompleteResults: Boolean,
+    val items: List<User>
+)
 
 //-------------
 // 1. Api Interface 작성
@@ -37,7 +45,12 @@ interface GithubApi {
     @GET("users/{login}")
     fun getUser(@Path("login") login: String): Call<User>
 
-    // ...
+    @GET("search/users")
+    fun searchUser(
+        @Query("q") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 10
+    ): Call<SearchUserResponse>
 }
 
 // 2. OKHttpClient 객체 생성
