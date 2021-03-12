@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
@@ -41,9 +42,11 @@ import okhttp3.Request
 data class User(
     val login: String,
     val id: Int,
-    @field:SerializedName("avatar_url") val avatarUrl: String,
+    // @field:SerializedName("avatar_url") val avatarUrl: String,
+    val avatarUrl: String,
     val type: String,
     val name: String,
+    val nodeId: String,
 
     // 전달되지 않을 수 있는 값에 대해서는 Nullable이 좋습니다.
     val company: String?,
@@ -130,6 +133,7 @@ class MainActivity2 : AppCompatActivity() {
                             // Toast.makeText(this, body.string(), Toast.LENGTH_SHORT).show()
 
                             val gson = GsonBuilder().apply {
+                                setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                             }.create()
 
                             val json = body.string()
