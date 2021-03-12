@@ -147,6 +147,7 @@ class MainActivity2 : AppCompatActivity() {
                             // Log.e(TAG, "$user $email")
                             Glide.with(this)
                                 .load(user.avatarUrl)
+                                .circleCrop()
                                 .into(binding.avatarImageView)
 
                             binding.nameTextView.text = user.name
