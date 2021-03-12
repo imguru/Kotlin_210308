@@ -75,6 +75,7 @@ class MainActivity2 : AppCompatActivity() {
         val TAG2 = MainActivity2::class.java.name
     }
 
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
@@ -96,8 +97,6 @@ class MainActivity2 : AppCompatActivity() {
             })
             */
             Thread {
-
-
                 // 1. OKHttpClient 객체 생성 - Builder
                 val client = OkHttpClient.Builder().apply {
                     // ...
@@ -188,7 +187,30 @@ class MainActivity2 : AppCompatActivity() {
         }
 
     }
+    */
+
+    // 비동기 버전
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMain2Binding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        binding.button.setOnClickListener {
+            val client = OkHttpClient.Builder().apply {
+                // ...
+            }.build()
+
+            val request = Request.Builder().apply {
+                url("https://api.github.com/users/JakeWharton")
+                get()
+            }.build()
+            
+            val call = client.newCall(request)
+        }
+    }
 }
+
 
 //------
 inline fun <reified T> Gson.fromJson(json: String): T {
