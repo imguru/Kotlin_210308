@@ -211,13 +211,13 @@ class MainActivity2 : AppCompatActivity() {
             // 비동기 => 다른 스레드에서 호출됩니다.
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    runOnUiThread {
+                     runOnUiThread {
                         Toast.makeText(
                             this@MainActivity2,
                             "Network error - ${e.localizedMessage}",
                             Toast.LENGTH_SHORT
                         ).show()
-                    }
+                     }
                 }
 
                 override fun onResponse(call: Call, response: Response) {
