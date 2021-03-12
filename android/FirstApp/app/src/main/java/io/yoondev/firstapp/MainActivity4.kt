@@ -47,6 +47,59 @@ class SList : Iterable<Int> {
 }
 
 
+// Collection
+// -   Iterable / Iterator : pull
+
+
+// Rx
+// - Observable / Observer : push
+
+// Rx 구성 요소
+//  1. Observable
+//    : 이벤트를 발생하는 주체로, 이벤트 스트림을 통해 이벤트를 Observer 에게 전달합니다.
+
+//  2. Observer
+//    : Observable에서 발생한 이벤트에 반응하는 객체
+//      이벤트가 발생하였을 때, 수행할 작업을 정의합니다.
+
+//     "Observer가 Observable을 구독(subscribe)한다" 라고 합니다.
+//       - onNext: 이벤트가 발생하였을 때
+//       - onError: 오류가 발생하였을 때
+//       - onComplete: 이벤트 스트림이 종료되었을 때
+
+//  3. Scheduler
+//    : 작업을 수행할 스레드를 지정할 수 있다.
+//    UI 스레드 / IO 스레드 / 작업 스레드 ..
+
+//  4. Operator
+//    : 연산자는 이벤트 스트림을 통해 전달되는 이벤트를 처리할 수 있습니다.
+//    => map / filter ...
+
+//  5. Disposable
+//    : Observer가 Observable을 구독할 때, '이벤트 스트림'이 생성됩니다.
+//      반드시 해지해 주어야 합니다.
+//   => dispose()
+
+
+class MainActivity4 : AppCompatActivity() {
+    lateinit var binding: ActivityMain2Binding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMain2Binding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        binding.button.setOnClickListener {
+
+
+        }
+
+    }
+
+}
+
+/*
 class MainActivity4 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
 
@@ -82,10 +135,11 @@ class MainActivity4 : AppCompatActivity() {
             list.forEach { e ->
                 Log.e("XXX", "$e")
             }
-            
+
 
         }
 
     }
 
 }
+*/
