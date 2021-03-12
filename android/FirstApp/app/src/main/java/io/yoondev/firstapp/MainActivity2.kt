@@ -1,8 +1,10 @@
 package io.yoondev.firstapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import io.yoondev.firstapp.databinding.ActivityMainBinding
@@ -41,12 +43,29 @@ data class User(
     val avatar_url: String,
     val type: String,
     val name: String,
-    val company: String,
-    val email: String,
+
+    // 전달되지 않을 수 있는 값에 대해서는 Nullable이 좋습니다.
+    val company: String?,
+    val email: String?,
 )
+
+// 상수
+// - 컴파일타입 상수: 메모리를 차지 하지 않는다.
+// - 런타임 상수: 메모리를 할당하고, 변경할 수 없도록 한다.
 
 class MainActivity2 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
+
+    // Java 상수
+    // private static final String TAG = "MainActivity2"
+    // private static final String TAG = MainActivity2.class.getName()
+
+    companion object {
+        const val TAG = "MainActivity2"
+        // const val : 컴파일 타임 상수
+
+        val TAG2 = MainActivity2::class.java.name
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,17 +129,20 @@ class MainActivity2 : AppCompatActivity() {
                             // Toast.makeText(this, body.string(), Toast.LENGTH_SHORT).show()
 
                             val gson = GsonBuilder().apply {
-
                             }.create()
 
                             val json = body.string()
-                            val user = gson.fromJson(json, User::class.java)
 
+                            // val user = gson.fromJson(json, User::class.java)
+                            val user = gson.fromJson<User>(json)
 
                             Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
+
+                            val email = user.email ?: "Null 값"
+                            Log.e(TAG, "$user $email")
+
+                            // user.email = "null"
                         }
-
-
                     }
                 }
 
@@ -131,7 +153,10 @@ class MainActivity2 : AppCompatActivity() {
     }
 }
 
-
+//------
+inline fun <reified T> Gson.fromJson(json: String): T {
+    return fromJson(json, T::class.java)
+}
 
 
 
