@@ -71,6 +71,19 @@ class MainActivity4 : AppCompatActivity() {
                 Log.e("XXX", "${iterator.next()}")
             }
 
+            // 2. for-in(foreach / 향상된 for)
+            for (e in list) {
+                Log.e("XXX", "$e")
+            }
+
+            // 3. Iterator / Iterable
+            //  => Collection을 다루는 일반적인 연산
+            //     forEach / map / filter / ...
+            list.forEach { e ->
+                Log.e("XXX", "$e")
+            }
+            
+
         }
 
     }
