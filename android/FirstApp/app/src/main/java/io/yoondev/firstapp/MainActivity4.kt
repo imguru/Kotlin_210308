@@ -94,6 +94,7 @@ class SList : Iterable<Int> {
 //      반드시 해지해 주어야 합니다.
 //   => dispose()
 
+data class User2(val name: String)
 
 class MainActivity4 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
@@ -119,6 +120,14 @@ class MainActivity4 : AppCompatActivity() {
             */
             // Collection
             //   List<User> -> map -> List<String>
+            val list = listOf(User2("Tom"), User2("Bob"))
+            val result = list.map {
+                it.name
+            }.filter {
+                it.length <= 5
+            }
+            println(result)
+
 
             // RxKotlin - RxJava를 Kotlin에서 사용하기 편하도록 만들어진 라이브러리
             githubApiRx.getUser("JakeWharton")
