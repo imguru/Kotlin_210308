@@ -126,31 +126,30 @@ class MainActivity4 : AppCompatActivity() {
                     items.isNotEmpty()
                 }
                 // Observable<List<User>> -> Observable<String?>
-//                .map { items: List<User> ->
-//
-//                    val first = items.firstOrNull()
-//                    Log.e("XXX", "map - $first")
-//                    first!!.name
-//                }
-//                .filter { name: String? ->
-//                    Log.e("XXX", "filter")
-//                    name != null
-//                }
-//                // Observable<String?> -> Observable<String>
-//                .map { name: String? ->
-//                    Log.e("XXX", "map")
-//                    name!!
-//                }
+                .map { items: List<User> ->
+
+                    val first = items.firstOrNull()
+                    Log.e("XXX", "map - $first")
+                    first!!.login
+                }
+                .filter { name: String? ->
+                    Log.e("XXX", "filter")
+                    name != null
+                }
+                // Observable<String?> -> Observable<String>
+                .map { name: String? ->
+                    Log.e("XXX", "map")
+                    name!!
+                }
                 // Observable<String> ->  map -> Observable<Observable<User>>
                 // .map { name: String ->
                 //    githubApiRx.getUser(name)  // Observable<User>
                 // }
 
                 // Observable<String> -> flatMap -> Observable<User>
-                .flatMap { items: List<User> ->
-
+                .flatMap { name: String ->
                     Log.e("XXX", "flatMap")
-                    githubApiRx.getUser(items[0].login)  // Observable<User>
+                    githubApiRx.getUser(name)  // Observable<User>
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(onNext = { user: User ->
