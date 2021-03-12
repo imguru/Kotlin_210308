@@ -311,9 +311,10 @@ inline fun <reified T> Gson.fromJson(json: String): T {
     return fromJson(json, T::class.java)
 }
 
-fun Call.enqueue(
-    onFailure: (e: IOException) -> Unit,
-    onResponse: (response: Response) -> Unit
+// 인라인 함수 안에서 다른 함수에서 호출되는 함수를 인라인화 하기 위해서는 crossinline 키워드가 필요합니다.
+inline fun Call.enqueue(
+    crossinline onFailure: (e: IOException) -> Unit,
+    crossinline onResponse: (response: Response) -> Unit
 ) {
     enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) = onFailure(e)
