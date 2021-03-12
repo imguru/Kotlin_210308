@@ -208,23 +208,27 @@ class MainActivity2 : AppCompatActivity() {
 
             val call = client.newCall(request)
 
-            // 비동기
+            // 비동기 => 다른 스레드에서 호출됩니다.
             call.enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    Toast.makeText(
-                        this@MainActivity2,
-                        "Network error - ${e.localizedMessage}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@MainActivity2,
+                            "Network error - ${e.localizedMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     if (!response.isSuccessful) {
-                        Toast.makeText(
-                            this@MainActivity2,
-                            "error - ${response.code}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@MainActivity2,
+                                "error - ${response.code}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                         return
                     }
 
@@ -236,17 +240,19 @@ class MainActivity2 : AppCompatActivity() {
                     val user = gson.fromJson<User>(json)
 
                     // UI Update
-                    with(binding) {
-                        avatarImageView.load(user.avatarUrl) {
-                            crossfade(3000)
-                            transformations(
-                                CircleCropTransformation(),
-                                GrayscaleTransformation(),
-                            )
-                        }
+                    runOnUiThread {
+                        with(binding) {
+                            avatarImageView.load(user.avatarUrl) {
+                                crossfade(3000)
+                                transformations(
+                                    CircleCropTransformation(),
+                                    GrayscaleTransformation(),
+                                )
+                            }
 
-                        nameTextView.text = user.name
-                        loginTextView.text = user.login
+                            nameTextView.text = user.name
+                            loginTextView.text = user.login
+                        }
                     }
                 }
             })
