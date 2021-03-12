@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.SerializedName
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
 import io.yoondev.firstapp.databinding.ActivityMainBinding
 import okhttp3.OkHttpClient
@@ -40,7 +41,7 @@ import okhttp3.Request
 data class User(
     val login: String,
     val id: Int,
-    val avatar_url: String,
+    @field:SerializedName("avatar_url") val avatarUrl: String,
     val type: String,
     val name: String,
 
