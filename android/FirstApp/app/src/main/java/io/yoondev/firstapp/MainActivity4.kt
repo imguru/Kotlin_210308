@@ -118,27 +118,22 @@ class MainActivity4 : AppCompatActivity() {
             githubApiRx.searchUser("jake")
                 // Observable<SearchUserResponse> -> Observable<List<User>>
                 .map { response: SearchUserResponse ->
-                    Log.e("XXX", "map")
                     response.items
                 }
                 .filter { items: List<User> ->
-                    Log.e("XXX", "filter")
                     items.isNotEmpty()
                 }
                 // Observable<List<User>> -> Observable<String?>
                 .map { items: List<User> ->
 
                     val first = items.firstOrNull()
-                    Log.e("XXX", "map - $first")
-                    first!!.login
+                    first?.login
                 }
                 .filter { name: String? ->
-                    Log.e("XXX", "filter")
                     name != null
                 }
                 // Observable<String?> -> Observable<String>
                 .map { name: String? ->
-                    Log.e("XXX", "map")
                     name!!
                 }
                 // Observable<String> ->  map -> Observable<Observable<User>>
@@ -148,15 +143,14 @@ class MainActivity4 : AppCompatActivity() {
 
                 // Observable<String> -> flatMap -> Observable<User>
                 .flatMap { name: String ->
-                    Log.e("XXX", "flatMap")
                     githubApiRx.getUser(name)  // Observable<User>
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(onNext = { user: User ->
-                    Log.e("XXX", "subscribeBy")
                     updateUserUI(user)
                 }, onError = { e ->
-                    Log.e("XXX", "${e.localizedMessage}")
+                    // 생략할 경우 예외가 발생하면, 비정상 종료된다.
+                    Log.e("XXX", "error - ${e.localizedMessage}")
                 })
 
 
