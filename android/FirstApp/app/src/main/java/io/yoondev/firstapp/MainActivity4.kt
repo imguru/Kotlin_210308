@@ -13,6 +13,23 @@ import io.yoondev.firstapp.databinding.ActivityMain2Binding
 //  => Iterator Pattern
 //   의도: 컬렉션의 내부 구조에 상관없이 요소를 열거하는 객체
 
+//  Iterator(반복자)
+//  Iterable
+// => Collection 설계자는 제공해야 한다.
+
+
+class SListIterator(private var current: SList.Node?) : Iterator<Int> {
+    override fun hasNext(): Boolean = current != null
+
+    // 현재의 current의 값을 반환하고, 다음 위치로 이동한다.
+    override fun next(): Int {
+        val ret = current?.value
+        current = current?.next
+
+        return ret!!
+    }
+}
+
 
 class SList {
     class Node(val value: Int, val next: Node?)
