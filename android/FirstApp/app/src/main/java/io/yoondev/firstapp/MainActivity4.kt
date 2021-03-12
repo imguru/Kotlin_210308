@@ -3,7 +3,16 @@ package io.yoondev.firstapp
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 // Reactive eXtension
@@ -143,3 +152,35 @@ class MainActivity4 : AppCompatActivity() {
 
 }
 */
+
+interface GithubApiRx {
+    @GET("users/{login}")
+    fun getUser(@Path("login") login: String): Call<User>
+
+    @GET("search/users")
+    fun searchUser(
+        @Query("q") query: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 10
+    ): Call<SearchUserResponse>
+}
+
+// 3. Retrofit 객체 생성
+private val retrofit: Retrofit = Retrofit.Builder().apply {
+    baseUrl("https://api.github.com/")
+    client(httpClient)
+
+    // Converter Factory
+    //----
+    val gson = GsonBuilder().apply {
+        setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+    }.create()
+
+    addConverterFactory(GsonConverterFactory.create(gson))
+    //----
+
+}.build()
+
+// 4. Retrofit 객체가 GithubApi 인터페이스의 어노테이션을 분석해서,
+//    자동으로 객체를 생성한다. - Reflection
+val githubApiRx: GithubApiRx = retrofit.create(GithubApiRx::class.java)

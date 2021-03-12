@@ -55,7 +55,7 @@ interface GithubApi {
 }
 
 // 2. OKHttpClient 객체 생성
-private val httpClient: OkHttpClient = OkHttpClient.Builder().apply {
+val httpClient: OkHttpClient = OkHttpClient.Builder().apply {
 
 }.build()
 
