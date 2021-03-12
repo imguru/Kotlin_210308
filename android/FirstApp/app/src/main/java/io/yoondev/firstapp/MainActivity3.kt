@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.GrayscaleTransformation
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import io.yoondev.firstapp.databinding.ActivityMain2Binding
@@ -76,12 +79,78 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
 // 4. Retrofit 객체가 GithubApi 인터페이스의 어노테이션을 분석해서,
 //    자동으로 객체를 생성한다. - Reflection
 val githubApi: GithubApi = retrofit.create(GithubApi::class.java)
-
 //-----------
+
+// Call - execute(동기) / enqueue(비동기)
+
+// - UI 스레드에서 요청할 경우, 'enqueue'를 사용하는 것이 좋습니다.
+// - UI 스레드가 아닌 스레드에서 요청 할 경우, 'execute'를 사용하는 것이 좋습니다.
+
+// => HTTP API(동기)
+//   : 1. Thread 생성
+//     2. API 요청
+//     3. Handler -> UI Update 수행
+//     => AsyncTask
+
 
 class MainActivity3 : AppCompatActivity() {
     lateinit var binding: ActivityMain2Binding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMain2Binding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+
+        binding.button.setOnClickListener {
+            // 1. 검색 - "Jake" (비동기) - searchUser
+            // 2. 검색 결과의 첫번째 사용자의 User 정보를 요청 (비동기) - getUser
+            // 3. 사용자 정보 출력 - UI
+
+            githubApi.searchUser("Jake")
+                .enqueue(onResponse = { response ->
+
+                    val items = response.body()?.items ?: emptyList()
+                    val login = items.firstOrNull()?.login ?: return@enqueue
+
+                    githubApi.getUser(login)
+                        .enqueue(
+                            onResponse = enqueue2@{ userResponse ->
+                                val user = userResponse.body() ?: return@enqueue2
+                                updateUserUI(user)
+                            },
+                            onFailure = {
+                                Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT).show()
+                            }
+                        )
+
+
+                }, onFailure = {
+                    Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT).show()
+                })
+
+
+        }
+
+    }
+
+    private fun updateUserUI(user: User) {
+        with(binding) {
+            avatarImageView.load(user.avatarUrl) {
+                crossfade(3000)
+                transformations(
+                    CircleCropTransformation(),
+                    GrayscaleTransformation(),
+                )
+            }
+
+            nameTextView.text = user.name
+            loginTextView.text = user.login
+        }
+    }
+
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
@@ -106,7 +175,6 @@ class MainActivity3 : AppCompatActivity() {
                     }
                 })
              */
-
             githubApi.searchUser("Jake")
                 .enqueue(
                     onResponse = { response ->
@@ -118,7 +186,6 @@ class MainActivity3 : AppCompatActivity() {
                             .show()
                     }
                 )
-
 
             /*
             val call = githubApi.getUser("JakeWharton")
@@ -155,6 +222,7 @@ class MainActivity3 : AppCompatActivity() {
             */
         }
     }
+    */
 }
 
 //-------
