@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.GrayscaleTransformation
 import com.bumptech.glide.Glide
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -145,10 +148,20 @@ class MainActivity2 : AppCompatActivity() {
                             // Toast.makeText(this, "$user", Toast.LENGTH_SHORT).show()
                             // val email = user.email ?: "Null 값"
                             // Log.e(TAG, "$user $email")
+                            /*
                             Glide.with(this)
                                 .load(user.avatarUrl)
                                 .circleCrop()
                                 .into(binding.avatarImageView)
+                            */
+
+                            // Kotlin Image Library - coil
+                            //  => Extension Function
+                            binding.avatarImageView.load(user.avatarUrl) {
+                                // crossfade(true)
+                                crossfade(3000)
+                                transformations(CircleCropTransformation(), GrayscaleTransformation())
+                            }
 
                             binding.nameTextView.text = user.name
                             binding.loginTextView.text = user.login
